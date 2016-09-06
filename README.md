@@ -13,7 +13,7 @@ hex-data  = 56 or 112 bit hexadecimal string representing the message data.
 hex-addr  = 24 bit address of the emitting aircraft.
 ````
 Thou it isn’t too picky, any of the fields, except `hex-data`, can be omitted. But
-without a time-stamp it can only make sense of real-time data, when e.g. decoding
+without a time-stamp it can only make sense of real-time data when e.g. decoding
 CPR locations. The address will be derived from the `AP` or `PI` message fields if missing.
 Likewise, the `DF` field is derived from the first 5 bits of the message, regardless of the input.
 It also understands messages as output by dump1090, with asterisk and semi-colon.
@@ -102,7 +102,7 @@ GBD=1,3:GNSS = 50 ± 12.5 ft below barometric altitude
 
 # rtl-modes
 
-rtl-modes is a stripped down version of
+`rtl-modes` is a stripped down version of
 [dump1090-mutability](https://github.com/mutability/dump1090).
 It reads data from an RTL-SDR device at 1090 MHz, sampling at 2.4 MHz,
 and print (seemingly valid) messages to stdout, using the same format
@@ -111,7 +111,7 @@ as described above as the preferred format for `msdec`.
 
 # msgui
 
-msgui is a GTK2 application for plotting the trails of aircrafts. See 
+`msgui` is a GTK2 application for plotting the trails of aircrafts. See 
 [screenshot.png](https://raw.githubusercontent.com/e5150/msdec/master/screenshot.png)
 
 
