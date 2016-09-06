@@ -12,7 +12,7 @@ unix-time = Number of seconds since midnight 1970-01-01, in decimal.
 hex-data  = 56 or 112 bit hexadecimal string representing the message data.
 hex-addr  = 24 bit address of the emitting aircraft.
 ````
-Thou it isn't too picky, any of the fields, except <hex-data>, can be omitted. But
+Thou it isn’t too picky, any of the fields, except <hex-data>, can be omitted. But
 without a time-stamp it can only make sense of real-time data, when e.g. decoding
 CPR locations. The address will be derived from the AP or PI message fields if missing.
 Likewise, the DF field is derived from the first 5 bits of the message, regardless of the input.
@@ -28,7 +28,7 @@ msdec has the following command line options:
 	of `m`, `q`, `h`, `6`, `d` and `w` for increments of
 	1 minute, 15 minutes, 1 hour, 6 hours, 1 day and 1 week, respectively.
 * `-H file` filename for histogram, otherwise temporary file.
-* `-al` dump aircraft logs, one file per aircraft, named "CC3:0xADDR.log"
+* `-al` dump aircraft logs, one file per aircraft, named `CC3:0xADDR.log`
 	(three char iso country code and aircraft hex-icao address) in
 	a temporary directory under /tmp, or dir given by `-A dir`.
 	No more than one line per second will be printed, and fields for which
@@ -44,7 +44,7 @@ HEAD = heading, degrees clockwise from north
 LAT  = latitude, four decimal decimal degrees
 LON  = longitude, four decimal decimal degrees
 ````
-* `-am` dump aircraft messages, one file per aircraft named "CC3:0xADDR.msg", to
+* `-am` dump aircraft messages, one file per aircraft named `CC3:0xADDR.msg`, to
 	same directory as aircraft logs.
 * `-A dir` directory for aircraft dumps
 * `-r` output raw messages, sample output:
