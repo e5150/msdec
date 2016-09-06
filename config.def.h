@@ -1,5 +1,5 @@
-static const double   default_lon  = 0.0
-static const double   default_lat  = 0.0
+static const double   default_lon  = 0.0;
+static const double   default_lat  = 0.0;
 
 /*
  * Print recorded locations and such
