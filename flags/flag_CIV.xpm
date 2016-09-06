@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_CIV[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 3 1",
+"  c #009E60",
+". c #F77F00",
+"X c gray100",
+/* pixels */
+"......XXXXXX      ",
+"......XXXXXX      ",
+"......XXXXXX      ",
+"......XXXXXX      ",
+"......XXXXXX      ",
+"......XXXXXX      ",
+"......XXXXXX      ",
+"......XXXXXX      ",
+"......XXXXXX      ",
+"......XXXXXX      ",
+"......XXXXXX      ",
+"......XXXXXX      "
+};

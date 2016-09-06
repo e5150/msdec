@@ -1,0 +1,30 @@
+/* XPM */
+static char *flag_BFA[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 12 1",
+"  c #3AA93D",
+". c #009E49",
+"X c #0DA147",
+"o c #EF2B2D",
+"O c #F25129",
+"+ c #F35129",
+"@ c #F36924",
+"# c #F36925",
+"$ c #ECCD19",
+"% c #EECD18",
+"& c #FBC419",
+"* c #FBC518",
+/* pixels */
+"oooooooooooooooooo",
+"oooooooooooooooooo",
+"oooooooooooooooooo",
+"oooooooooooooooooo",
+"ooooooooOOoooooooo",
+"ooooooo@&&@ooooooo",
+"........%%........",
+".......X  X.......",
+"..................",
+"..................",
+"..................",
+".................."
+};

@@ -1,0 +1,22 @@
+/* XPM */
+static char *flag_MUS[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 4 1",
+"  c #1A206D",
+". c #00A551",
+"X c #EA2839",
+"o c #FFD500",
+/* pixels */
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"                  ",
+"                  ",
+"                  ",
+"oooooooooooooooooo",
+"oooooooooooooooooo",
+"oooooooooooooooooo",
+"..................",
+"..................",
+".................."
+};

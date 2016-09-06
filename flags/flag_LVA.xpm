@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_LVA[] = {
+/* columns rows colors chars-per-pixel */
+"24 12 3 1",
+"  c #9E3039",
+". c #B15961",
+"X c gray100",
+/* pixels */
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"........................",
+"XXXXXXXXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXXXXXXXX",
+"........................",
+"                        ",
+"                        ",
+"                        ",
+"                        "
+};

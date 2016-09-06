@@ -1,0 +1,27 @@
+/* XPM */
+static char *flag_GRC[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 9 1",
+"  c #0D5EAF",
+". c #2870B8",
+"X c #4281C1",
+"o c #5E94CA",
+"O c #5F94CA",
+"+ c #79A6D3",
+"@ c #95B8DC",
+"# c #AFCAE5",
+"$ c gray100",
+/* pixels */
+"  O$              ",
+"  O$  X###########",
+"OO@$OO+###########",
+"$$$$$$#           ",
+"  O$  O$$$$$$$$$$$",
+"  O$  .OOOOOOOOOOO",
+"OO@$OOOOOOOOOOOOOO",
+"$$$$$$$$$$$$$$$$$$",
+"                  ",
+"##################",
+"##################",
+"                  "
+};

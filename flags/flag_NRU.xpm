@@ -1,0 +1,26 @@
+/* XPM */
+static char *flag_NRU[] = {
+/* columns rows colors chars-per-pixel */
+"24 12 8 1",
+"  c #002B7F",
+". c #0C3585",
+"X c #294D94",
+"o c #4C6AA5",
+"O c #80784E",
+"+ c #867E56",
+"@ c #B1BED8",
+"# c #FEFEFE",
+/* pixels */
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"OOOOOOOOOOOOOOOOOOOOOOOO",
+"OOOOO++OOOOOOOOOOOOOOOOO",
+"    X@@X                ",
+"    o##o                ",
+"    X@@X                ",
+"     ..                 ",
+"                        "
+};

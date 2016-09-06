@@ -1,0 +1,28 @@
+/* XPM */
+static char *flag_ARG[] = {
+/* columns rows colors chars-per-pixel */
+"19 12 10 1",
+"  c #74ACDF",
+". c #E5A325",
+"X c #E9AC27",
+"o c #F6DC9E",
+"O c #F8DB9F",
+"+ c #FDF4DB",
+"@ c #FFFBF2",
+"# c #FFFEFD",
+"$ c #FFFFFE",
+"% c gray100",
+/* pixels */
+"                   ",
+"                   ",
+"                   ",
+"                   ",
+"%%%%%%%%@+@%%%%%%%%",
+"%%%%%%%%o.O%%%%%%%%",
+"%%%%%%%%OXo%%%%%%%%",
+"%%%%%%%%@+@%%%%%%%%",
+"                   ",
+"                   ",
+"                   ",
+"                   "
+};

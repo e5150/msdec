@@ -1,0 +1,36 @@
+/* XPM */
+static char *flag_UGA[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 18 1",
+"  c black",
+". c #2C2C2C",
+"X c #B66968",
+"o c #D90000",
+"O c #E02C2C",
+"+ c #E02D2D",
+"@ c #FCDC04",
+"# c #848382",
+"$ c #ADACAC",
+"% c gray71",
+"& c #B9BAB9",
+"* c #C7968C",
+"= c #C1ADAD",
+"- c #EFB6AE",
+"; c #F5BFBF",
+": c #C0C0C0",
+"> c #F6C1C1",
+", c #E9E8E7",
+/* pixels */
+"                  ",
+"                  ",
+"@@@@@@@@@@@@@@@@@@",
+"@@@@@@@@@@@@@@@@@@",
+"ooooooo+*-+ooooooo",
+"ooooooo>#,;ooooooo",
+"       :&X=       ",
+"       .%$.       ",
+"@@@@@@@@@@@@@@@@@@",
+"@@@@@@@@@@@@@@@@@@",
+"oooooooooooooooooo",
+"oooooooooooooooooo"
+};

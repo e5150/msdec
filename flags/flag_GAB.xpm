@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_GAB[] = {
+/* columns rows colors chars-per-pixel */
+"16 12 3 1",
+"  c #3A75C4",
+". c #009E60",
+"X c #FCD116",
+/* pixels */
+"................",
+"................",
+"................",
+"................",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"                ",
+"                ",
+"                ",
+"                "
+};

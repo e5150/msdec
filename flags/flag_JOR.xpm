@@ -1,0 +1,35 @@
+/* XPM */
+static char *flag_JOR[] = {
+/* columns rows colors chars-per-pixel */
+"24 12 17 1",
+"  c black",
+". c #37050A",
+"X c #007A3D",
+"o c #375E37",
+"O c #336037",
+"+ c #9E0D1D",
+"@ c #9B2B2C",
+"# c #9E292B",
+"$ c #CE1126",
+"% c #CE1328",
+"& c #D32A3D",
+"* c #D43042",
+"= c #D94858",
+"- c #E37682",
+"; c #E47C88",
+": c #F2C0C5",
+"> c gray100",
+/* pixels */
+"+.                      ",
+"$$+.                    ",
+"$$$$+.                  ",
+"$$$$$$+.                ",
+"$$$$$$$$=:>>>>>>>>>>>>>>",
+"$$$-&$$$$$=:>>>>>>>>>>>>",
+"$$%;*$$$$$=:>>>>>>>>>>>>",
+"$$$$$$$$=:>>>>>>>>>>>>>>",
+"$$$$$$#oXXXXXXXXXXXXXXXX",
+"$$$$#oXXXXXXXXXXXXXXXXXX",
+"$$#oXXXXXXXXXXXXXXXXXXXX",
+"@OXXXXXXXXXXXXXXXXXXXXXX"
+};

@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_SLE[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 3 1",
+"  c #0072C6",
+". c #1EB53A",
+"X c gray100",
+/* pixels */
+"..................",
+"..................",
+"..................",
+"..................",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"                  ",
+"                  ",
+"                  ",
+"                  "
+};

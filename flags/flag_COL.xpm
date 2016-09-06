@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_COL[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 3 1",
+"  c #003893",
+". c #CE1126",
+"X c #FCD116",
+/* pixels */
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"                  ",
+"                  ",
+"                  ",
+"..................",
+"..................",
+".................."
+};

@@ -1,0 +1,36 @@
+/* XPM */
+static char *flag_SOM[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 18 1",
+"  c #4189DD",
+". c #5093E0",
+"X c #5192E0",
+"o c #639EE3",
+"O c #649EE3",
+"+ c #66A0E3",
+"@ c #71A7E6",
+"# c #72A8E5",
+"$ c #A1C5EE",
+"% c #A5C7EF",
+"& c #A9C9EF",
+"* c #ACCCF0",
+"= c #ADCDF0",
+"- c #B4D0F1",
+"; c #E0ECF9",
+": c #FDFEFF",
+"> c #FEFEFF",
+", c gray100",
+/* pixels */
+"                  ",
+"                  ",
+"                  ",
+"        Oo        ",
+"        **        ",
+"      #;::;@      ",
+"       +::+       ",
+"       %-&$       ",
+"       X  X       ",
+"                  ",
+"                  ",
+"                  "
+};

@@ -1,0 +1,29 @@
+/* XPM */
+static char *flag_ISL[] = {
+/* columns rows colors chars-per-pixel */
+"17 12 11 1",
+"  c #003897",
+". c #3D68B0",
+"X c #557ABA",
+"o c #7B98C9",
+"O c #7D9ACA",
+"+ c #DA3535",
+"@ c #DD4747",
+"# c #DF5252",
+"$ c #E46F6F",
+"% c #A7BADB",
+"& c #E98686",
+/* pixels */
+"    .&#o         ",
+"    .&#o         ",
+"    .&#o         ",
+"    .&#o         ",
+"XXXXO&#%XXXXXXXXX",
+"$$$$$@+$$$$$$$$$$",
+"$$$$$@+$$$$$$$$$$",
+"XXXXO&#%XXXXXXXXX",
+"    .&#o         ",
+"    .&#o         ",
+"    .&#o         ",
+"    .&#o         "
+};

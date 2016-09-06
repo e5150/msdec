@@ -1,0 +1,23 @@
+/* XPM */
+static char *flag_TON[] = {
+/* columns rows colors chars-per-pixel */
+"24 12 5 1",
+"  c #C10000",
+". c #C41010",
+"X c #D03F3F",
+"o c #F3CFCF",
+"O c gray100",
+/* pixels */
+"OOOOooOOOO              ",
+"OOOOXXOOOO              ",
+"OOoX..XoOO              ",
+"OOoX..XoOO              ",
+"OOOOXXOOOO              ",
+"OOOOooOOOO              ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        "
+};

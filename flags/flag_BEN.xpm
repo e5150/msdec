@@ -1,0 +1,23 @@
+/* XPM */
+static char *flag_BEN[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 5 1",
+"  c #008751",
+". c #BA2934",
+"X c #E8112D",
+"o c #CAC222",
+"O c #FCD116",
+/* pixels */
+"       oOOOOOOOOOO",
+"       oOOOOOOOOOO",
+"       oOOOOOOOOOO",
+"       oOOOOOOOOOO",
+"       oOOOOOOOOOO",
+"       oOOOOOOOOOO",
+"       .XXXXXXXXXX",
+"       .XXXXXXXXXX",
+"       .XXXXXXXXXX",
+"       .XXXXXXXXXX",
+"       .XXXXXXXXXX",
+"       .XXXXXXXXXX"
+};

@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_EST[] = {
+/* columns rows colors chars-per-pixel */
+"19 12 3 1",
+"  c black",
+". c #0072CE",
+"X c gray100",
+/* pixels */
+"...................",
+"...................",
+"...................",
+"...................",
+"                   ",
+"                   ",
+"                   ",
+"                   ",
+"XXXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXXX"
+};

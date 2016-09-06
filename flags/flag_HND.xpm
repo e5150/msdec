@@ -1,0 +1,29 @@
+/* XPM */
+static char *flag_HND[] = {
+/* columns rows colors chars-per-pixel */
+"24 12 11 1",
+"  c #0073CF",
+". c #7BB6E8",
+"X c #AFD2F0",
+"o c #B0D2F1",
+"O c #BBDAF2",
+"+ c #BBDAF3",
+"@ c #C3DDF3",
+"# c #C3DEF3",
+"$ c #F3F8FD",
+"% c #FDFDFF",
+"& c gray100",
+/* pixels */
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"&&&&&&&&.$&&&&$.&&&&&&&&",
+"&&&&&&&&X%&++&&o&&&&&&&&",
+"&&&&&&&&.$&@@&$.&&&&&&&&",
+"&&&&&&&&X%&&&&&X&&&&&&&&",
+"                        ",
+"                        ",
+"                        ",
+"                        "
+};

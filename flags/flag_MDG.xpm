@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_MDG[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 3 1",
+"  c #007E3A",
+". c #FC3D32",
+"X c gray100",
+/* pixels */
+"XXXXXX............",
+"XXXXXX............",
+"XXXXXX............",
+"XXXXXX............",
+"XXXXXX............",
+"XXXXXX............",
+"XXXXXX            ",
+"XXXXXX            ",
+"XXXXXX            ",
+"XXXXXX            ",
+"XXXXXX            ",
+"XXXXXX            "
+};

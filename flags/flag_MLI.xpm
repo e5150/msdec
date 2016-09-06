@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_MLI[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 3 1",
+"  c #14B53A",
+". c #CE1126",
+"X c #FCD116",
+/* pixels */
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......"
+};

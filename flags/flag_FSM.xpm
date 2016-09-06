@@ -1,0 +1,36 @@
+/* XPM */
+static char *flag_FSM[] = {
+/* columns rows colors chars-per-pixel */
+"23 12 18 1",
+"  c #75B2DD",
+". c #77B2DD",
+"X c #79B4DE",
+"o c #79B5DE",
+"O c #7EB7DF",
+"+ c #81B8DF",
+"@ c #95C5E5",
+"# c #96C4E5",
+"$ c #9CC8E6",
+"% c #B7D5ED",
+"& c #B6D7ED",
+"* c #B7D6ED",
+"= c #B7D7ED",
+"- c #DBECF6",
+"; c #DCEBF6",
+": c #DCECF6",
+"> c #DDECF6",
+", c #F9FBFE",
+/* pixels */
+"                       ",
+"           $           ",
+"          #,#          ",
+"          O+O          ",
+"       .       .       ",
+"      o>%     =;o      ",
+"      o>%     %>o      ",
+"                       ",
+"          O+O          ",
+"          #,#          ",
+"           $           ",
+"                       "
+};

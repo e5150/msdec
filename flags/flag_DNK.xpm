@@ -1,0 +1,24 @@
+/* XPM */
+static char *flag_DNK[] = {
+/* columns rows colors chars-per-pixel */
+"16 12 6 1",
+"  c #C60C30",
+". c #F4D2D9",
+"X c #F7DDE2",
+"o c #FBECEF",
+"O c #FDF9FA",
+"+ c #FEFCFD",
+/* pixels */
+"     .o         ",
+"     .o         ",
+"     .o         ",
+"     .o         ",
+"     .o         ",
+"XXXXXO+XXXXXXXXX",
+"XXXXXO+XXXXXXXXX",
+"     .o         ",
+"     .o         ",
+"     .o         ",
+"     .o         ",
+"     .o         "
+};

@@ -1,0 +1,35 @@
+/* XPM */
+static char *flag_NIC[] = {
+/* columns rows colors chars-per-pixel */
+"20 12 17 1",
+"  c #0067C6",
+". c #92B65F",
+"X c #99BD5C",
+"o c #BFC59B",
+"O c #BEC79A",
+"+ c #ECEEE2",
+"@ c #ECF0E3",
+"# c #FBF7EA",
+"$ c #FBF7EB",
+"% c #FBF9EA",
+"& c #FBF9EC",
+"* c #FBF9ED",
+"= c #FDFBF4",
+"- c #FDFCF5",
+"; c #FDFCF6",
+": c #FDFCF7",
+"> c gray100",
+/* pixels */
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+">>>>>>>>=*#:>>>>>>>>",
+">>>>>>>>*OO%>>>>>>>>",
+">>>>>>>>+X.@>>>>>>>>",
+">>>>>>>>=$*=>>>>>>>>",
+"                    ",
+"                    ",
+"                    ",
+"                    "
+};

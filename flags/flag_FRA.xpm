@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_FRA[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 3 1",
+"  c #002395",
+". c #ED2939",
+"X c gray100",
+/* pixels */
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......"
+};

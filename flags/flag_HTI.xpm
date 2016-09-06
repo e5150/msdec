@@ -1,0 +1,35 @@
+/* XPM */
+static char *flag_HTI[] = {
+/* columns rows colors chars-per-pixel */
+"20 12 17 1",
+"  c #00209F",
+". c #738BB9",
+"X c #748BBA",
+"o c #7485CB",
+"O c #D21034",
+"+ c #88815C",
+"@ c #8A825D",
+"# c #828A67",
+"$ c #838C69",
+"% c #B4864E",
+"& c #B6854E",
+"* c #BFC5B4",
+"= c #BFC7B6",
+"- c #C3BAB1",
+"; c #C5BAB1",
+": c #DDDCE7",
+"> c #DEDCE8",
+/* pixels */
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"        o..o        ",
+"        :==>        ",
+"OOOOOOOO-&&;OOOOOOOO",
+"OOOOOOOO+#$+OOOOOOOO",
+"OOOOOOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOOOOOO"
+};

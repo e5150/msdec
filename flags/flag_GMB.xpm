@@ -1,0 +1,23 @@
+/* XPM */
+static char *flag_GMB[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 5 1",
+"  c #3A7728",
+". c #0C1C8C",
+"X c #CE1126",
+"o c #AEB3D9",
+"O c #B8C7C3",
+/* pixels */
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"oooooooooooooooooo",
+"..................",
+"..................",
+"OOOOOOOOOOOOOOOOOO",
+"                  ",
+"                  ",
+"                  ",
+"                  "
+};

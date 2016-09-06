@@ -1,0 +1,30 @@
+/* XPM */
+static char *flag_GNB[] = {
+/* columns rows colors chars-per-pixel */
+"24 12 12 1",
+"  c #0C0103",
+". c #0E0202",
+"X c #100103",
+"o c #100204",
+"O c #009E49",
+"+ c #810B18",
+"@ c #9F0D1E",
+"# c #9F0E1D",
+"$ c #A00D1D",
+"% c #C41024",
+"& c #CE1126",
+"* c #FCD116",
+/* pixels */
+"&&&&&&&&****************",
+"&&&&&&&&****************",
+"&&&&&&&&****************",
+"&&&&&&&&****************",
+"&&&#$&&&****************",
+"&&+Xo+&&****************",
+"&&&  &&&OOOOOOOOOOOOOOOO",
+"&&%#$%&&OOOOOOOOOOOOOOOO",
+"&&&&&&&&OOOOOOOOOOOOOOOO",
+"&&&&&&&&OOOOOOOOOOOOOOOO",
+"&&&&&&&&OOOOOOOOOOOOOOOO",
+"&&&&&&&&OOOOOOOOOOOOOOOO"
+};

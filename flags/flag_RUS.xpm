@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_RUS[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 3 1",
+"  c #0039A6",
+". c #D52B1E",
+"X c gray100",
+/* pixels */
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"..................",
+"..................",
+"..................",
+".................."
+};

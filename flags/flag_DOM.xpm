@@ -1,0 +1,34 @@
+/* XPM */
+static char *flag_DOM[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 16 1",
+"  c #002D62",
+". c #325681",
+"X c #5B789A",
+"o c #987F6F",
+"O c #CE1126",
+"+ c #D84051",
+"@ c #DF6673",
+"# c #878071",
+"$ c #8E9B81",
+"% c #82A188",
+"& c #E0E2E1",
+"* c #E1E4E1",
+"= c #FBFDFB",
+"- c #FCFEFC",
+"; c #FEFEFE",
+": c gray100",
+/* pixels */
+"       .::+OOOOOOO",
+"       .::+OOOOOOO",
+"       .::+OOOOOOO",
+"       .::+OOOOOOO",
+".......X*&@+++++++",
+"::::::::%$::::::::",
+":::::::=o#::::::::",
+"+++++++@::X.......",
+"OOOOOOO+::.       ",
+"OOOOOOO+::.       ",
+"OOOOOOO+::.       ",
+"OOOOOOO+::.       "
+};

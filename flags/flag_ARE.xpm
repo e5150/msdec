@@ -1,0 +1,22 @@
+/* XPM */
+static char *flag_ARE[] = {
+/* columns rows colors chars-per-pixel */
+"24 12 4 1",
+"  c black",
+". c #00732F",
+"X c red",
+"o c gray100",
+/* pixels */
+"XXXXXX..................",
+"XXXXXX..................",
+"XXXXXX..................",
+"XXXXXX..................",
+"XXXXXXoooooooooooooooooo",
+"XXXXXXoooooooooooooooooo",
+"XXXXXXoooooooooooooooooo",
+"XXXXXXoooooooooooooooooo",
+"XXXXXX                  ",
+"XXXXXX                  ",
+"XXXXXX                  ",
+"XXXXXX                  "
+};

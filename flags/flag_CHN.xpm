@@ -1,0 +1,35 @@
+/* XPM */
+static char *flag_CHN[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 17 1",
+"  c #DE2910",
+". c #DE2A10",
+"X c #DF300F",
+"o c #E0310F",
+"O c #E0320F",
+"+ c #E0340F",
+"@ c #E13A0F",
+"# c #E13D0E",
+"$ c #E3440E",
+"% c #E4470D",
+"& c #E4490D",
+"* c #E44A0D",
+"= c #E54F0D",
+"- c #E75C0B",
+"; c #E9660B",
+": c #F5A605",
+"> c #F6AB05",
+/* pixels */
+"     XO           ",
+"  ## $*           ",
+" %::% +;          ",
+"  >>   O          ",
+"  ##  @-          ",
+"     *=           ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  "
+};

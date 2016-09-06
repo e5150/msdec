@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_BEL[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 3 1",
+"  c black",
+". c #ED2939",
+"X c #FAE042",
+/* pixels */
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......",
+"      XXXXXX......"
+};

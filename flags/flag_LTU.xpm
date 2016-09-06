@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_LTU[] = {
+/* columns rows colors chars-per-pixel */
+"20 12 3 1",
+"  c #006A44",
+". c #C1272D",
+"X c #FDB913",
+/* pixels */
+"XXXXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXXXX",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"....................",
+"....................",
+"....................",
+"...................."
+};

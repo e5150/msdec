@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_YEM[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 3 1",
+"  c black",
+". c #CE1126",
+"X c gray100",
+/* pixels */
+"..................",
+"..................",
+"..................",
+"..................",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"                  ",
+"                  ",
+"                  ",
+"                  "
+};

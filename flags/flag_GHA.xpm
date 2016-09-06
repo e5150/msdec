@@ -1,0 +1,30 @@
+/* XPM */
+static char *flag_GHA[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 12 1",
+"  c #131002",
+". c #006B3F",
+"X c #4F4207",
+"o c #937A0D",
+"O c #CE1126",
+"+ c #A2860E",
+"@ c #D2AF12",
+"# c #D3AF12",
+"$ c #E1BB14",
+"% c #E9C114",
+"& c #FBD016",
+"* c #FCD116",
+/* pixels */
+"OOOOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOOOO",
+"********##********",
+"******&+XX+&******",
+"*******%  %*******",
+"*******$oo$*******",
+"..................",
+"..................",
+"..................",
+".................."
+};

@@ -1,0 +1,33 @@
+/* XPM */
+static char *flag_AZE[] = {
+/* columns rows colors chars-per-pixel */
+"24 12 15 1",
+"  c #3F9C35",
+". c #00B9E4",
+"X c #ED2939",
+"o c #ED2A3A",
+"O c #EE3140",
+"+ c #EF3D4C",
+"@ c #EF4654",
+"# c #F36C78",
+"$ c #F36E79",
+"% c #F3757F",
+"& c #F47680",
+"* c #F69098",
+"= c #F69099",
+"- c #F9B0B6",
+"; c #F9B7BB",
+/* pixels */
+"........................",
+"........................",
+"........................",
+"........................",
+"XXXXXXXXXX&*$XXXXXXXXXXX",
+"XXXXXXXXX+-XO;@XXXXXXXXX",
+"XXXXXXXXX+-XO;@XXXXXXXXX",
+"XXXXXXXXXX%*$XXXXXXXXXXX",
+"                        ",
+"                        ",
+"                        ",
+"                        "
+};

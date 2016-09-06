@@ -1,0 +1,16 @@
+static char *flag_unk[] = {
+"18 12 1 1",
+"x c #202020",
+"xxxxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxxxx",
+"xxxxxxxxxxxxxxxxxx",
+};

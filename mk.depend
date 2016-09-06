@@ -1,0 +1,173 @@
+msgui.o: msgui.c arg.h map.h compass.h config.h histogram.h aircraft.h \
+ message.h fields.h df00.h df04.h df05.h df11.h df16.h df17.h es.h df18.h \
+ df19.h df20.h df21.h df24.h bds_05.h bds_06.h bds_08.h bds_09.h bds_30.h \
+ bds_61.h bds_62.h bds_65.h bds_f2.h tisb_c.h tisb_f.h nation.h util.h \
+ parse.h sources.h
+msdec.o: msdec.c arg.h config.h histogram.h aircraft.h message.h fields.h \
+ df00.h df04.h df05.h df11.h df16.h df17.h es.h df18.h df19.h df20.h \
+ df21.h df24.h bds_05.h bds_06.h bds_08.h bds_09.h bds_30.h bds_61.h \
+ bds_62.h bds_65.h bds_f2.h tisb_c.h tisb_f.h nation.h util.h stats.h \
+ parse.h dump.h
+rtl-modes.o: rtl-modes.c arg.h crc.h util.h es.h
+message.o: message.c config.h aircraft.h message.h fields.h df00.h df04.h \
+ df05.h df11.h df16.h df17.h es.h df18.h df19.h df20.h df21.h df24.h \
+ bds_05.h bds_06.h bds_08.h bds_09.h bds_30.h bds_61.h bds_62.h bds_65.h \
+ bds_f2.h tisb_c.h tisb_f.h nation.h util.h crc.h compass.h
+histogram.o: histogram.c histogram.h aircraft.h message.h fields.h df00.h \
+ df04.h df05.h df11.h df16.h df17.h es.h df18.h df19.h df20.h df21.h \
+ df24.h bds_05.h bds_06.h bds_08.h bds_09.h bds_30.h bds_61.h bds_62.h \
+ bds_65.h bds_f2.h tisb_c.h tisb_f.h nation.h dump.h
+aircraft.o: aircraft.c aircraft.h message.h fields.h df00.h df04.h df05.h \
+ df11.h df16.h df17.h es.h df18.h df19.h df20.h df21.h df24.h bds_05.h \
+ bds_06.h bds_08.h bds_09.h bds_30.h bds_61.h bds_62.h bds_65.h bds_f2.h \
+ tisb_c.h tisb_f.h nation.h cpr.h mac.h
+fields.o: fields.c fields.h compass.h mac.h nation.h
+parse.o: parse.c message.h fields.h df00.h df04.h df05.h df11.h df16.h \
+ df17.h es.h df18.h df19.h df20.h df21.h df24.h bds_05.h bds_06.h \
+ bds_08.h bds_09.h bds_30.h bds_61.h bds_62.h bds_65.h bds_f2.h tisb_c.h \
+ tisb_f.h parse.h aircraft.h nation.h util.h
+stats.o: stats.c aircraft.h message.h fields.h df00.h df04.h df05.h \
+ df11.h df16.h df17.h es.h df18.h df19.h df20.h df21.h df24.h bds_05.h \
+ bds_06.h bds_08.h bds_09.h bds_30.h bds_61.h bds_62.h bds_65.h bds_f2.h \
+ tisb_c.h tisb_f.h nation.h stats.h
+es.o: es.c es.h bds_05.h fields.h bds_06.h bds_08.h bds_09.h bds_61.h \
+ bds_30.h bds_62.h bds_65.h
+df00.o: df00.c fields.h df00.h mac.h
+df04.o: df04.c df04.h fields.h mac.h
+df05.o: df05.c df05.h fields.h mac.h
+df11.o: df11.c df11.h fields.h
+df16.o: df16.c df16.h fields.h mac.h bds_30.h
+df17.o: df17.c df17.h fields.h es.h
+df18.o: df18.c df18.h fields.h es.h tisb_c.h tisb_f.h mac.h
+df19.o: df19.c df19.h fields.h es.h bds_f2.h
+df20.o: df20.c df20.h fields.h mac.h
+df21.o: df21.c df21.h fields.h mac.h
+df24.o: df24.c df24.h fields.h
+cpr.o: cpr.c cpr.h fields.h
+crc.o: crc.c
+compass.o: compass.c
+dump.o: dump.c mac.h aircraft.h message.h fields.h df00.h df04.h df05.h \
+ df11.h df16.h df17.h es.h df18.h df19.h df20.h df21.h df24.h bds_05.h \
+ bds_06.h bds_08.h bds_09.h bds_30.h bds_61.h bds_62.h bds_65.h bds_f2.h \
+ tisb_c.h tisb_f.h nation.h stats.h compass.h
+mac.o: mac.c mac.h
+nation.o: nation.c nation.h flags.h flags/flag_AFG.xpm flags/flag_AGO.xpm \
+ flags/flag_ALB.xpm flags/flag_ARE.xpm flags/flag_ARG.xpm \
+ flags/flag_ARM.xpm flags/flag_ATG.xpm flags/flag_AUS.xpm \
+ flags/flag_AUT.xpm flags/flag_AZE.xpm flags/flag_BDI.xpm \
+ flags/flag_BEL.xpm flags/flag_BEN.xpm flags/flag_BFA.xpm \
+ flags/flag_BGD.xpm flags/flag_BGR.xpm flags/flag_BHR.xpm \
+ flags/flag_BHS.xpm flags/flag_BIH.xpm flags/flag_BLR.xpm \
+ flags/flag_BLZ.xpm flags/flag_BOL.xpm flags/flag_BRA.xpm \
+ flags/flag_BRB.xpm flags/flag_BRN.xpm flags/flag_BTN.xpm \
+ flags/flag_BWA.xpm flags/flag_CAF.xpm flags/flag_CAN.xpm \
+ flags/flag_CHE.xpm flags/flag_CHL.xpm flags/flag_CHN.xpm \
+ flags/flag_CIV.xpm flags/flag_CMR.xpm flags/flag_COD.xpm \
+ flags/flag_COG.xpm flags/flag_COK.xpm flags/flag_COL.xpm \
+ flags/flag_COM.xpm flags/flag_CPV.xpm flags/flag_CRI.xpm \
+ flags/flag_CUB.xpm flags/flag_CYP.xpm flags/flag_CZE.xpm \
+ flags/flag_DEU.xpm flags/flag_DJI.xpm flags/flag_DNK.xpm \
+ flags/flag_DOM.xpm flags/flag_DZA.xpm flags/flag_ECU.xpm \
+ flags/flag_EGY.xpm flags/flag_ERI.xpm flags/flag_ESP.xpm \
+ flags/flag_EST.xpm flags/flag_ETH.xpm flags/flag_FIN.xpm \
+ flags/flag_FJI.xpm flags/flag_FRA.xpm flags/flag_FSM.xpm \
+ flags/flag_GAB.xpm flags/flag_GBR.xpm flags/flag_GEO.xpm \
+ flags/flag_GHA.xpm flags/flag_GIN.xpm flags/flag_GMB.xpm \
+ flags/flag_GNB.xpm flags/flag_GNQ.xpm flags/flag_GRC.xpm \
+ flags/flag_GRD.xpm flags/flag_GTM.xpm flags/flag_GUY.xpm \
+ flags/flag_HND.xpm flags/flag_HRV.xpm flags/flag_HTI.xpm \
+ flags/flag_HUN.xpm flags/flag_IDN.xpm flags/flag_IND.xpm \
+ flags/flag_IRL.xpm flags/flag_IRN.xpm flags/flag_IRQ.xpm \
+ flags/flag_ISL.xpm flags/flag_ISR.xpm flags/flag_ITA.xpm \
+ flags/flag_JAM.xpm flags/flag_JOR.xpm flags/flag_JPN.xpm \
+ flags/flag_KAZ.xpm flags/flag_KEN.xpm flags/flag_KGZ.xpm \
+ flags/flag_KHM.xpm flags/flag_KIR.xpm flags/flag_KOR.xpm \
+ flags/flag_KWT.xpm flags/flag_LAO.xpm flags/flag_LBN.xpm \
+ flags/flag_LBR.xpm flags/flag_LBY.xpm flags/flag_LCA.xpm \
+ flags/flag_LKA.xpm flags/flag_LSO.xpm flags/flag_LTU.xpm \
+ flags/flag_LUX.xpm flags/flag_LVA.xpm flags/flag_MAR.xpm \
+ flags/flag_MCO.xpm flags/flag_MDA.xpm flags/flag_MDG.xpm \
+ flags/flag_MDV.xpm flags/flag_MEX.xpm flags/flag_MHL.xpm \
+ flags/flag_MKD.xpm flags/flag_MLI.xpm flags/flag_MLT.xpm \
+ flags/flag_MMR.xpm flags/flag_MNE.xpm flags/flag_MNG.xpm \
+ flags/flag_MOZ.xpm flags/flag_MRT.xpm flags/flag_MUS.xpm \
+ flags/flag_MWI.xpm flags/flag_MYS.xpm flags/flag_NAM.xpm \
+ flags/flag_NER.xpm flags/flag_NGA.xpm flags/flag_NIC.xpm \
+ flags/flag_NLD.xpm flags/flag_NOR.xpm flags/flag_NPL.xpm \
+ flags/flag_NRU.xpm flags/flag_NZL.xpm flags/flag_OMN.xpm \
+ flags/flag_PAK.xpm flags/flag_PAN.xpm flags/flag_PER.xpm \
+ flags/flag_PHL.xpm flags/flag_PLW.xpm flags/flag_PNG.xpm \
+ flags/flag_POL.xpm flags/flag_PRK.xpm flags/flag_PRT.xpm \
+ flags/flag_PRY.xpm flags/flag_QAT.xpm flags/flag_ROU.xpm \
+ flags/flag_RUS.xpm flags/flag_RWA.xpm flags/flag_SAU.xpm \
+ flags/flag_SDN.xpm flags/flag_SEN.xpm flags/flag_SGP.xpm \
+ flags/flag_SLB.xpm flags/flag_SLE.xpm flags/flag_SLV.xpm \
+ flags/flag_SMR.xpm flags/flag_SOM.xpm flags/flag_SRB.xpm \
+ flags/flag_STP.xpm flags/flag_SUR.xpm flags/flag_SVK.xpm \
+ flags/flag_SVN.xpm flags/flag_SWE.xpm flags/flag_SWZ.xpm \
+ flags/flag_SYC.xpm flags/flag_SYR.xpm flags/flag_TCD.xpm \
+ flags/flag_TGO.xpm flags/flag_THA.xpm flags/flag_TJK.xpm \
+ flags/flag_TKM.xpm flags/flag_TON.xpm flags/flag_TTO.xpm \
+ flags/flag_TUN.xpm flags/flag_TUR.xpm flags/flag_TZA.xpm \
+ flags/flag_UGA.xpm flags/flag_UKR.xpm flags/flag_URY.xpm \
+ flags/flag_USA.xpm flags/flag_UZB.xpm flags/flag_VCT.xpm \
+ flags/flag_VEN.xpm flags/flag_VNM.xpm flags/flag_VUT.xpm \
+ flags/flag_WSM.xpm flags/flag_YEM.xpm flags/flag_ZAF.xpm \
+ flags/flag_ZMB.xpm flags/flag_ZWE.xpm flags/flag_unk.xpm
+util.o: util.c util.h
+tisb_c.o: tisb_c.c tisb_c.h fields.h mac.h compass.h
+tisb_f.o: tisb_f.c tisb_f.h fields.h mac.h
+bds_05.o: bds_05.c bds_05.h fields.h mac.h
+bds_06.o: bds_06.c bds_06.h fields.h compass.h
+bds_08.o: bds_08.c bds_08.h fields.h
+bds_09.o: bds_09.c bds_09.h fields.h
+bds_30.o: bds_30.c bds_30.h fields.h mac.h
+bds_61.o: bds_61.c bds_61.h bds_30.h fields.h
+bds_62.o: bds_62.c bds_62.h fields.h
+bds_65.o: bds_65.c bds_65.h fields.h
+bds_f2.o: bds_f2.c bds_f2.h fields.h mac.h
+map.o: map.c map.h sources.h
+message.o: message.h fields.h df00.h df04.h df05.h df11.h df16.h df17.h \
+ es.h df18.h df19.h df20.h df21.h df24.h bds_05.h bds_06.h bds_08.h \
+ bds_09.h bds_30.h bds_61.h bds_62.h bds_65.h bds_f2.h tisb_c.h tisb_f.h
+histogram.o: histogram.h
+aircraft.o: aircraft.h message.h fields.h df00.h df04.h df05.h df11.h \
+ df16.h df17.h es.h df18.h df19.h df20.h df21.h df24.h bds_05.h bds_06.h \
+ bds_08.h bds_09.h bds_30.h bds_61.h bds_62.h bds_65.h bds_f2.h tisb_c.h \
+ tisb_f.h nation.h
+fields.o: fields.h
+parse.o: parse.h aircraft.h message.h fields.h df00.h df04.h df05.h \
+ df11.h df16.h df17.h es.h df18.h df19.h df20.h df21.h df24.h bds_05.h \
+ bds_06.h bds_08.h bds_09.h bds_30.h bds_61.h bds_62.h bds_65.h bds_f2.h \
+ tisb_c.h tisb_f.h nation.h
+stats.o: stats.h
+es.o: es.h
+df00.o: df00.h fields.h
+df04.o: df04.h fields.h
+df05.o: df05.h fields.h
+df11.o: df11.h fields.h
+df16.o: df16.h fields.h
+df17.o: df17.h fields.h es.h
+df18.o: df18.h fields.h es.h
+df19.o: df19.h fields.h es.h
+df20.o: df20.h fields.h
+df21.o: df21.h fields.h
+df24.o: df24.h fields.h
+cpr.o: cpr.h fields.h
+crc.o: crc.h
+compass.o: compass.h
+dump.o: dump.h
+mac.o: mac.h
+nation.o: nation.h
+util.o: util.h
+tisb_c.o: tisb_c.h fields.h
+tisb_f.o: tisb_f.h fields.h
+bds_05.o: bds_05.h fields.h
+bds_06.o: bds_06.h fields.h
+bds_08.o: bds_08.h fields.h
+bds_09.o: bds_09.h fields.h
+bds_30.o: bds_30.h fields.h
+bds_61.o: bds_61.h bds_30.h fields.h
+bds_62.o: bds_62.h fields.h
+bds_65.o: bds_65.h fields.h
+bds_f2.o: bds_f2.h fields.h

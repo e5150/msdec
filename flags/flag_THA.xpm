@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_THA[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 3 1",
+"  c #241D4F",
+". c #ED1C24",
+"X c gray100",
+/* pixels */
+"..................",
+"..................",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"..................",
+".................."
+};

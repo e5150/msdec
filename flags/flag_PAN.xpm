@@ -1,0 +1,35 @@
+/* XPM */
+static char *flag_PAN[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 17 1",
+"  c #005293",
+". c #15619B",
+"X c #15629C",
+"o c #D21034",
+"O c #D42443",
+"+ c #D62445",
+"@ c #9EBDD6",
+"# c #EDA3B1",
+"$ c #C6D9E7",
+"% c #C7D9E8",
+"& c #F5C9D1",
+"* c #F5C9D2",
+"= c #E2ECF3",
+"- c #F9E4E8",
+"; c #F6F9FB",
+": c #FDF6F8",
+"> c gray100",
+/* pixels */
+">>>>>>>>>ooooooooo",
+">>>>=>>>>ooooooooo",
+">>>@X@>>>ooooooooo",
+">>>%.$>>>ooooooooo",
+">>>;>;>>>ooooooooo",
+">>>>>>>>>ooooooooo",
+"         >>>>>>>>>",
+"         >>>>->>>>",
+"         >>>#+#>>>",
+"         >>>*O*>>>",
+"         >>>:>:>>>",
+"         >>>>>>>>>"
+};

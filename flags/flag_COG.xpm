@@ -1,0 +1,23 @@
+/* XPM */
+static char *flag_COG[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 5 1",
+"  c #009543",
+". c #7EB946",
+"X c #DC241F",
+"o c #EB8135",
+"O c #FBDE4A",
+/* pixels */
+"           .OOOOOo",
+"          .OOOOOoX",
+"         .OOOOOoXX",
+"        .OOOOOoXXX",
+"       .OOOOOoXXXX",
+"      .OOOOOoXXXXX",
+"     .OOOOOoXXXXXX",
+"    .OOOOOoXXXXXXX",
+"   .OOOOOoXXXXXXXX",
+"  .OOOOOoXXXXXXXXX",
+" .OOOOOoXXXXXXXXXX",
+".OOOOOoXXXXXXXXXXX"
+};

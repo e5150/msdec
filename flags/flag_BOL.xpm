@@ -1,0 +1,21 @@
+/* XPM */
+static char *flag_BOL[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 3 1",
+"  c #007934",
+". c #D52B1E",
+"X c #F9E300",
+/* pixels */
+"..................",
+"..................",
+"..................",
+"..................",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXX",
+"                  ",
+"                  ",
+"                  ",
+"                  "
+};

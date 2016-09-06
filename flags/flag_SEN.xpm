@@ -1,0 +1,31 @@
+/* XPM */
+static char *flag_SEN[] = {
+/* columns rows colors chars-per-pixel */
+"18 12 13 1",
+"  c #00853F",
+". c #0F8C3F",
+"X c #138D3F",
+"o c #148E3F",
+"O c #E31B23",
+"+ c #9EC741",
+"@ c #9EC841",
+"# c #C3D741",
+"$ c #C4D741",
+"% c #C4D841",
+"& c #F0E942",
+"* c #F0EA42",
+"= c #FDEF42",
+/* pixels */
+"      ======OOOOOO",
+"      ======OOOOOO",
+"      ======OOOOOO",
+"      ======OOOOOO",
+"      ==#$==OOOOOO",
+"      =@Xo+=OOOOOO",
+"      ==..==OOOOOO",
+"      =*$%*=OOOOOO",
+"      ======OOOOOO",
+"      ======OOOOOO",
+"      ======OOOOOO",
+"      ======OOOOOO"
+};
