@@ -1,4 +1,4 @@
-Mode S decoder
+# Mode S decoder
 This is a set of three programs: `msdec`, `msgui` and `rtl-modes`.
 
 # msdec
