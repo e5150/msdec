@@ -115,7 +115,7 @@ msgui is a GTK2 application for plotting the trails of aircrafts.
 
 
 # Compilation
-Edit `config.h`, and possibly `mk.config` to your needs, and run `make`.
+Copy `config.def.h` to `config.h` and edit it, and possibly `mk.config`, to your needs, and run `make`.
 
 
 # License
