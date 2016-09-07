@@ -137,10 +137,14 @@ update_info(const struct ms_aircraft_t *a) {
 		const char *map_attr2 = sources[gui.map_source].attrib_full2;
 
 		gtk_frame_set_label(gui.info.frame, "msdec");
-		gtk_label_set_markup(gui.info.reg,    msdec_line);
-		gtk_label_set_markup(gui.info.vel,    osmgm_line);
-		gtk_label_set_markup(gui.info.squawk, map_attr1);
-		gtk_label_set_markup(gui.info.coord,  map_attr2);
+		gtk_label_set_markup(gui.info.reg,     msdec_line);
+		gtk_label_set_markup(gui.info.vel,     osmgm_line);
+		gtk_label_set_markup(gui.info.squawk,  map_attr1);
+		gtk_label_set_markup(gui.info.coord,   map_attr2);
+		gtk_label_set_markup(gui.info.heading, "");
+		gtk_label_set_markup(gui.info.vrate,   "");
+		gtk_label_set_markup(gui.info.msgs,    "");
+		gtk_label_set_markup(gui.info.seen,    "");
 	} else {
 		char text[256];
 		int i = 0;
