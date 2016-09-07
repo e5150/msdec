@@ -113,12 +113,13 @@ as described above as the preferred format for `msdec`.
 
 `msgui` is a GTK2 application for plotting the trails of aircrafts. See 
 [screenshot.png](https://raw.githubusercontent.com/e5150/msdec/master/screenshot.png).
+
 Command line options:
 * `-m #` minimum number of messages for aircrafts to be listed.
 * `-s #` maximum number of seconds since last message for listed aircrafts.
 * `-a #` active aircraft threshold, seconds since last message.
 * `-M #` maximum number of messages kept per aircraft (0 means no
-         purging of messages until application exits.
+         purging of messages until application exits).
 * `-h`   show home location (dot at location and circles at 1-10 NM).
 * `-H`   do not show home.
 * `-p`   plot previous trails.
