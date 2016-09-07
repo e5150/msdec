@@ -112,7 +112,30 @@ as described above as the preferred format for `msdec`.
 # msgui
 
 `msgui` is a GTK2 application for plotting the trails of aircrafts. See 
-[screenshot.png](https://raw.githubusercontent.com/e5150/msdec/master/screenshot.png)
+[screenshot.png](https://raw.githubusercontent.com/e5150/msdec/master/screenshot.png).
+Command line options:
+* `-m #` minimum number of messages for aircrafts to be listed.
+* `-s #` maximum number of seconds since last message for listed aircrafts.
+* `-a #` active aircraft threshold, seconds since last message.
+* `-M #` maximum number of messages kept per aircraft (0 means no
+         purging of messages until application exits.
+* `-h`   show home location (dot at location and circles at 1-10 NM).
+* `-H`   do not show home.
+* `-p`   plot previous trails.
+* `-P`   plot only last trail of aircraft (location signals within 5 minutes of
+         each other are regarded as belonging to the same trail).
+* `-i`   plot trails of inactive aircrafts.
+* `-I`   do not plot inactive aircrafts.
+* `-S #` use map source (1-4 valid as of this moment).
+Key binding:
+* `+`   zoom in
+* `-`   zoom out
+* `ctrl + [0-9]` sort list by column given by number
+* `ctrl + arrow` move map in given direction
+* `ctrl + h` toggle show home location
+* `h` center map on home location
+* `p` toggle list headers visibility
+* `m` toggle list / message view
 
 
 # Compilation

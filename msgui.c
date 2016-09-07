@@ -121,53 +121,54 @@ enum {
 
 static GdkColor colors[COL_COUNT];
 
-GtkWidget *
-mk_sane_label(const char *text, GtkLabel **set, gfloat align) {
-	GtkWidget *alignment = gtk_alignment_new(align, 0, 0, 0);
-	GtkWidget *label = gtk_label_new(NULL);
-	gtk_container_add(GTK_CONTAINER(alignment), label);
-	gtk_label_set_markup(GTK_LABEL(label), text);
-	if (set)
-		*set = GTK_LABEL(label);
-	return alignment;
-}
+#define GPL3URL "https://www.gnu.org/licenses/gpl-3.0.html"
+#define GPL2URL "https://www.gnu.org/licenses/gpl-2.0.html"
+#define OGMURL "https://nzjrs.github.io/osm-gps-map/"
+
+
 
 static void
 update_info(const struct ms_aircraft_t *a) {
-	char text[256];
-	int i = 0;
 
-	{
-		if (a)
-			snprintf(text, sizeof(text) - 1, "%s:%06X", a->nation->iso3, a->addr);
-		else
-			snprintf(text, sizeof(text) - 1, "info");
+	if (!a) {
+		const char msdec_line[] = "Mode S decode © Lars Lindqvist 2016 <a href=\"" GPL3URL "\">GPLv3</a>";
+		const char osmgm_line[] =  "Map widget based on <a href=\""OGMURL"\">osm-gps-map</a> © John Stowers &amp; al. <a href=\"" GPL2URL "\">GPLv2+</a>";
+		const char *map_attr1 = sources[gui.map_source].attrib_full1;
+		const char *map_attr2 = sources[gui.map_source].attrib_full2;
+
+		gtk_frame_set_label(gui.info.frame, "msdec");
+		gtk_label_set_markup(gui.info.reg,    msdec_line);
+		gtk_label_set_markup(gui.info.vel,    osmgm_line);
+		gtk_label_set_markup(gui.info.squawk, map_attr1);
+		gtk_label_set_markup(gui.info.coord,  map_attr2);
+	} else {
+		char text[256];
+		int i = 0;
+		struct tm *tmp = localtime(&a->last_seen);
+
+		strftime(text, sizeof(text) - 1, "%Y-%m-%d %H:%M:%S", tmp);
+		gtk_label_set_text(gui.info.seen, text);
+
+		snprintf(text, sizeof(text) - 1, "%s:%06X", a->nation->iso3, a->addr);
 		gtk_frame_set_label(gui.info.frame, text);
-	}{
 		i = snprintf(text, sizeof(text) - 1, "Registration: ");
-		if (a) {
-			if (a->name[0])
-				i += snprintf(text + i, sizeof(text) - 1 - i, "%s / ", a->name);
-			snprintf(text + i, sizeof(text) - 1 - i, "%s", a->nation->name);
-		} else {
-			snprintf(text + i, sizeof(text) - 1 - i, "N/A");
-		}
+		if (a->name[0])
+			i += snprintf(text + i, sizeof(text) - 1 - i, "%s / ", a->name);
+		snprintf(text + i, sizeof(text) - 1 - i, "%s", a->nation->name);
 		gtk_label_set_text(gui.info.reg, text);
-	}{
-		if (a && a->velocities.last) {
+		if (a->velocities.last) {
 			int vr = a->velocities.last->vrate;
 			int a = vr < 0 ? -vr : vr;
 			
 			snprintf(text, sizeof(text) - 1,
-			         "Rate of %s: %'d ft/min (%'.0f m/s)",
-			         vr > 0 ? "climb" : "descent", a, 0.00508 * a);
+				 "Rate of %s: %'d ft/min (%'.0f m/s)",
+				 vr > 0 ? "climb" : "descent", a, 0.00508 * a);
 		} else {
 			snprintf(text, sizeof(text) - 1, "Vertical rate: N/A");
 		}
 		gtk_label_set_text(gui.info.vrate, text);
-	}{
 		i = snprintf(text, sizeof(text) - 1, "Coördinates: ");
-		if (a && a->locations.last) {
+		if (a->locations.last) {
 			double lon = a->locations.last->lon;
 			double lat = a->locations.last->lat;
 			i += fill_angle_str(text + i, sizeof(text) - 1 - i, lat);
@@ -180,84 +181,66 @@ update_info(const struct ms_aircraft_t *a) {
 			snprintf(text + i, sizeof(text) - 1 - i, "N/A");
 		}
 		gtk_label_set_text(gui.info.coord, text);
-	}{
 		i = snprintf(text, sizeof(text) - 1, "Speed: ");
-		if (a && a->velocities.last) {
+		if (a->velocities.last) {
 			double vel = a->velocities.last->speed;
 			snprintf(text + i, sizeof(text) - 1 - i,
-			         "%'.0f kt (%'.0f km/h)",
-			         vel, KT2KMPH(vel));
+				 "%'.0f kt (%'.0f km/h)",
+				 vel, KT2KMPH(vel));
 		} else {
 			snprintf(text + i, sizeof(text) - 1 - i, "N/A");
 		}
 		gtk_label_set_text(gui.info.vel, text);
-	}{
 		i = snprintf(text, sizeof(text) - 1, "Heading: ");
-		if (a && a->velocities.last) {
+		if (a->velocities.last) {
 			double h = a->velocities.last->track;
 			i += fill_angle_str(text + i, sizeof(text) - 1 - i, h);
 			snprintf(text + i, sizeof(text) - 1 - i,
-			         " (%s)", get_comp_point(h));
+				 " (%s)", get_comp_point(h));
 		} else {
 			snprintf(text + i, sizeof(text) - 1 - i, "N/A");
 		}
 		gtk_label_set_text(gui.info.heading, text);
-	}{
 		i = snprintf(text, sizeof(text) - 1, "Squawk: ");
-		if (a && a->squawks.last) {
+		if (a->squawks.last) {
 			uint16_t ID = a->squawks.last->ID;
 			snprintf(text + i, sizeof(text) - 1 - i,
-			         "%04o %s", ID, get_ID_desc(ID));
+				 "%04o %s", ID, get_ID_desc(ID));
 		} else {
 			snprintf(text + i, sizeof(text) - 1 - i, "N/A");
 		}
 		gtk_label_set_text(gui.info.squawk, text);
-	}{
 		i = snprintf(text, sizeof(text) - 1, "Messages: ");
-		if (a) {
-			i += snprintf(text + i, sizeof(text) - 1 - i, "%'d", a->n_messages);
-		} else {
-			snprintf(text + i, sizeof(text) - 1 - i, "N/A");
-		}
+		i += snprintf(text + i, sizeof(text) - 1 - i, "%'d", a->n_messages);
 		gtk_label_set_text(gui.info.msgs, text);
-	}{
-		if (a) {
-			struct tm *tmp = localtime(&a->last_seen);
-			strftime(text, sizeof(text) - 1, "%Y-%m-%d %H:%M:%S", tmp);
-			gtk_label_set_text(gui.info.seen, text);
-		} else {
-			gtk_label_set_text(gui.info.seen, NULL);
-		}
 	}
-
-		
-
 
 }
 
-#define GPL3URL "https://www.gnu.org/licenses/gpl-3.0.html"
-#define GPL2URL "https://www.gnu.org/licenses/gpl-2.0.html"
-#define OGMURL "https://nzjrs.github.io/osm-gps-map/"
 
-static const char msdec_line[] = "Mode S decode © Lars Lindqvist 2016 <a href=\"" GPL3URL "\">GPLv3</a>";
-static const char osmgm_line[] =  "Map widget based on <a href=\""OGMURL"\">osm-gps-map</a> © John Stowers &amp; al. <a href=\"" GPL2URL "\">GPLv2+</a>";
+GtkWidget *
+mk_sane_label(GtkLabel **set, gfloat align) {
+	GtkWidget *alignment = gtk_alignment_new(align, 0, 0, 0);
+	GtkWidget *label = gtk_label_new(NULL);
+	gtk_container_add(GTK_CONTAINER(alignment), label);
+	if (set)
+		*set = GTK_LABEL(label);
+	return alignment;
+}
 
 GtkWidget *
 mk_info() {
 	GtkWidget *frame     = gtk_frame_new("msdec");
 	GtkWidget *container = gtk_table_new(10, 3, FALSE);
 
-	const char *map_att1 = sources[gui.map_source].attrib_full1;
-	const char *map_att2 = sources[gui.map_source].attrib_full2;
-
-	GtkWidget *reg_lbl    = mk_sane_label(msdec_line, &gui.info.reg,     0);
-	GtkWidget *vrate_lbl  = mk_sane_label("",         &gui.info.vrate,   0);
-	GtkWidget *vel_lbl    = mk_sane_label(osmgm_line, &gui.info.vel,     0);
-	GtkWidget *track_lbl  = mk_sane_label("",         &gui.info.heading, 0);
-	GtkWidget *squawk_lbl = mk_sane_label(map_att1,   &gui.info.squawk,  0);
-	GtkWidget *msgs_lbl   = mk_sane_label("",         &gui.info.msgs,    0);
-	GtkWidget *coord_lbl  = mk_sane_label(map_att2,   &gui.info.coord,   0);
-	GtkWidget *seen_lbl   = mk_sane_label("",         &gui.info.seen,    1);
+	GtkWidget *reg_lbl    = mk_sane_label(&gui.info.reg,     0);
+	GtkWidget *vrate_lbl  = mk_sane_label(&gui.info.vrate,   0);
+	GtkWidget *vel_lbl    = mk_sane_label(&gui.info.vel,     0);
+	GtkWidget *track_lbl  = mk_sane_label(&gui.info.heading, 0);
+	GtkWidget *squawk_lbl = mk_sane_label(&gui.info.squawk,  0);
+	GtkWidget *msgs_lbl   = mk_sane_label(&gui.info.msgs,    0);
+	GtkWidget *coord_lbl  = mk_sane_label(&gui.info.coord,   0);
+	GtkWidget *seen_lbl   = mk_sane_label(&gui.info.seen,    1);
 
 	int row = 0;
 
@@ -270,9 +253,10 @@ mk_info() {
 	gtk_table_attach(GTK_TABLE(container), msgs_lbl,   0, 1, row, row + 1, GTK_EXPAND | GTK_FILL, 0, 3, 1);
 	gtk_table_attach(GTK_TABLE(container), seen_lbl,   1, 2, row, row + 1, GTK_EXPAND | GTK_FILL, 0, 3, 1);
 
-
 	gui.info.frame = GTK_FRAME(frame);
 	gtk_container_add(GTK_CONTAINER(frame), container);
+
+	update_info(NULL);
 	return frame;
 }
 
@@ -902,6 +886,7 @@ cb_do_filter(GtkWidget *w, gpointer user_data) {
 
 	osm_gps_map_map_redraw_idle(gui.map);
 	if (gui.new_source) {
+		update_info(gui.sel);
 		gui.new_source = false;
 		osm_gps_map_set_map_source(gui.map, gui.map_source);
 	}
