@@ -127,6 +127,8 @@ Command line options:
 * `-i`   plot trails of inactive aircrafts.
 * `-I`   do not plot inactive aircrafts.
 * `-S #` use map source (1-4 valid as of this moment).
+
+
 Key binding:
 * `+`   zoom in
 * `-`   zoom out
