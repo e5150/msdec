@@ -53,7 +53,7 @@ LIB_SRC=                \
 
 GUI_SRC=map.c
 
-HDR = $(LIB_SRC:.c=.h)
+HDR = $(LIB_SRC:.c=.h) map.h sources.h arg.h flags.h
 
 GUI_OBJ = $(GUI_SRC:.c=.o)
 LIB_OBJ = $(LIB_SRC:.c=.o)
@@ -110,7 +110,7 @@ clean:
 
 dist:
 	mkdir -p $(PKG)-$(VERSION)
-	tar -cf- $(SRC) $(HDR) config.def.h mk.depend mk.config Makefile | tar -C $(PKG)-$(VERSION) -xf-
+	tar -cf- $(SRC) $(HDR) flags config.def.h mk.depend mk.config Makefile | tar -C $(PKG)-$(VERSION) -xf-
 	tar czf $(PKG)-$(VERSION).tar.gz $(PKG)-$(VERSION)
 	rm -rf $(PKG)-$(VERSION)
 
