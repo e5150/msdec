@@ -69,6 +69,9 @@
 #include "util.h"
 #include "es.h"
 
+#define CONF_RTL_MODES
+#include "config.h"
+
 #define ICAO_CACHE_LEN           256
 #define ICAO_CACHE_TTL           60
 
@@ -92,6 +95,18 @@
 #define RTL_SAMPLE_RATE         2400000.0
 #define RTL_FREQUENCY           1090000000
 #define RTL_PPM_ERROR           52
+
+static struct {
+	FILE *fp;
+	const char *filename;
+	gid_t gid;
+} mslog, msout;
+
+static struct {
+	uid_t uid;
+	gid_t gid;
+	bool daemonize;
+} msd;
 
 struct mag_buf {
 	uint16_t *data;		/*  Magnitude data. Starts with Modes.trailing_samples worth of overlap from the previous block */
@@ -124,7 +139,6 @@ static struct {			/*  Internal state */
 	/*  Configuration */
 	int nfix_crc;		/*  Number of crc bit error(s) to correct */
 	int check_crc;		/*  Only display messages with good CRC */
-
 } Modes;
 
 static struct {
@@ -191,7 +205,27 @@ icao_cache_seen(uint32_t addr) {
 	return false;
 }
 
+int
+fprintftime(FILE *fp, const char *str, ...) {
+	va_list ap;
+	char timestr[20];
+	time_t t;
+	struct tm *tmp;
+	int ret = 0;
 
+	t = time(NULL);
+	if ((tmp = localtime(&t)) && strftime(timestr, 20, "%Y-%m-%d %H:%M:%S", tmp)) {
+		ret += fprintf(fp, "%s ", timestr);
+	} else {
+		ret += fprintf(fp, "--time-error-- ");
+	}
+
+	va_start(ap, str);
+	ret += vfprintf(fp, str, ap);
+	va_end(ap);
+
+	return ret;
+}
 
 /*
  * 2.4MHz sampling rate version
@@ -488,32 +522,8 @@ demodulate2400(struct mag_buf *mag) {
 		 */
 		j += msglen * 12 / 5;
 
-		/* Pass data to the next layer */
 	}
 
-}
-
-static void log_with_timestamp(const char *format, ...) __attribute__ ((format(printf, 1, 2)));
-
-static void
-log_with_timestamp(const char *format, ...) {
-	char timebuf[128];
-	char msg[1024];
-	time_t now;
-	struct tm local;
-	va_list ap;
-
-	now = time(NULL);
-	localtime_r(&now, &local);
-	strftime(timebuf, 128, "%c %Z", &local);
-	timebuf[127] = 0;
-
-	va_start(ap, format);
-	vsnprintf(msg, 1024, format, ap);
-	va_end(ap);
-	msg[1023] = 0;
-
-	fprintf(stderr, "%s  %s\n", timebuf, msg);
 }
 
 static void
@@ -525,6 +535,15 @@ signal_handler(int sig) {
 		Modes.exit = 1;
 		break;
 	case SIGHUP:
+		fprintftime(mslog.fp, "Reopening files\n");
+		fclose(mslog.fp);
+		fclose(msout.fp);
+		if (!(mslog.fp = fopen(mslog.filename, "a")))
+			exit(1);
+		if (!(msout.fp = fopen(msout.filename, "a")))
+			exit(1);
+		setbuf(mslog.fp, NULL);
+		fprintftime(mslog.fp, "Reopened files\n");
 		break;
 	default:
 		signal(sig, SIG_DFL);
@@ -532,7 +551,7 @@ signal_handler(int sig) {
 	}
 }
 
-static void
+static int
 modesInit(void) {
 	int i, q;
 
@@ -542,15 +561,15 @@ modesInit(void) {
 	Modes.trailing_samples = (MODES_PREAMBLE_US + MODES_LONG_MSG_BITS + 16) * 1e-6 * RTL_SAMPLE_RATE;
 
 	if (((Modes.maglut = (uint16_t *) malloc(sizeof(uint16_t) * 256 * 256)) == NULL)) {
-		fprintf(stderr, "Out of memory allocating data buffer.\n");
-		exit(1);
+		fprintftime(mslog.fp, "FATAL: malloc: %s\n", strerror(errno));
+		return -1;
 	}
 
 	for (i = 0; i < MODES_MAG_BUFFERS; ++i) {
 		if ((Modes.mag_buffers[i].data =
 		     calloc(MODES_MAG_BUF_SAMPLES + Modes.trailing_samples, sizeof(uint16_t))) == NULL) {
-			fprintf(stderr, "Out of memory allocating magnitude buffer.\n");
-			exit(1);
+			fprintftime(mslog.fp, "FATAL: calloc: %s\n", strerror(errno));
+			return -1;
 		}
 
 		Modes.mag_buffers[i].length = 0;
@@ -570,8 +589,7 @@ modesInit(void) {
 			Modes.maglut[le16toh((i * 256) + q)] = (uint16_t) round(sqrtf(magsq) * 65535.0);
 		}
 	}
-
-
+	return 0;
 }
 
 static void
@@ -624,22 +642,21 @@ modesInitRTLSDR(void) {
 
 	device_count = rtlsdr_get_device_count();
 	if (!device_count) {
-		fprintf(stderr, "No supported RTLSDR devices found.\n");
+		fprintftime(mslog.fp, "No supported RTLSDR devices found.\n");
 		return -1;
 	}
 
-	fprintf(stderr, "Found %d device(s):\n", device_count);
 	for (i = 0; i < device_count; i++) {
 		if (rtlsdr_get_device_usb_strings(i, vendor, product, serial) != 0) {
-			fprintf(stderr, "%d: unable to read device details\n", i);
+			fprintftime(mslog.fp, "%d: unable to read device details\n", i);
 		} else {
-			fprintf(stderr, "%d: %s, %s, SN: %s %s\n", i, vendor, product, serial,
+			fprintftime(mslog.fp, "%d: %s, %s, SN: %s %s\n", i, vendor, product, serial,
 				(i == Modes.dev_index) ? "(currently selected)" : "");
 		}
 	}
 
 	if (rtlsdr_open(&Modes.dev, Modes.dev_index) < 0) {
-		fprintf(stderr, "Error opening the RTLSDR device: %s\n", strerror(errno));
+		fprintftime(mslog.fp, "Error opening the RTLSDR device: %s\n", strerror(errno));
 		return -1;
 	}
 	/* Set gain, frequency, sample rate, and reset the device */
@@ -647,13 +664,13 @@ modesInitRTLSDR(void) {
 
 	numgains = rtlsdr_get_tuner_gains(Modes.dev, NULL);
 	if (numgains <= 0) {
-		fprintf(stderr, "Error getting tuner gains\n");
+		fprintftime(mslog.fp, "Error getting tuner gains\n");
 		return -1;
 	}
 
 	gains = malloc(numgains * sizeof(int));
 	if (rtlsdr_get_tuner_gains(Modes.dev, gains) != numgains) {
-		fprintf(stderr, "Error getting tuner gains\n");
+		fprintftime(mslog.fp, "Error getting tuner gains\n");
 		free(gains);
 		return -1;
 	}
@@ -663,12 +680,12 @@ modesInitRTLSDR(void) {
 			highest = gains[i];
 	}
 
-	fprintf(stderr, "Max available gain is: %.2f dB\n", highest / 10.0);
+	fprintftime(mslog.fp, "Max available gain is: %.2f dB\n", highest / 10.0);
 
 	free(gains);
 
 	if (rtlsdr_set_tuner_gain(Modes.dev, highest) < 0) {
-		fprintf(stderr, "Error setting tuner gains\n");
+		fprintftime(mslog.fp, "Error setting tuner gains\n");
 		return -1;
 	}
 	rtlsdr_set_freq_correction(Modes.dev, RTL_PPM_ERROR);
@@ -678,7 +695,7 @@ modesInitRTLSDR(void) {
 	rtlsdr_set_sample_rate(Modes.dev, (unsigned)RTL_SAMPLE_RATE);
 
 	rtlsdr_reset_buffer(Modes.dev);
-	fprintf(stderr, "Gain reported by device: %.2f dB\n", rtlsdr_get_tuner_gain(Modes.dev) / 10.0);
+	fprintftime(mslog.fp, "Gain reported by device: %.2f dB\n", rtlsdr_get_tuner_gain(Modes.dev) / 10.0);
 
 	return 0;
 }
@@ -720,7 +737,7 @@ rtlsdrCallback(uint8_t *buf, uint32_t len, void *ctx) {
 	/*  Paranoia! Unlikely, but let's go for belt and suspenders here */
 
 	if (len != MODES_RTL_BUF_SIZE) {
-		fprintf(stderr,
+		fprintftime(mslog.fp,
 			"weirdness: rtlsdr gave us a block with an unusual size (got %u bytes, expected %u bytes)\n",
 			(unsigned)len, (unsigned)MODES_RTL_BUF_SIZE);
 
@@ -777,81 +794,6 @@ rtlsdrCallback(uint8_t *buf, uint32_t len, void *ctx) {
 	pthread_mutex_unlock(&Modes.data_mutex);
 }
 
-static void
-readDataFromFile(void) {
-	int eof = 0;
-	struct timespec next_buffer_delivery;
-	void *readbuf;
-	int bytes_per_sample = 2;
-
-	if (!(readbuf = malloc(MODES_MAG_BUF_SAMPLES * bytes_per_sample))) {
-		fprintf(stderr, "failed to allocate read buffer\n");
-		exit(1);
-	}
-
-	clock_gettime(CLOCK_MONOTONIC, &next_buffer_delivery);
-
-	pthread_mutex_lock(&Modes.data_mutex);
-	while (!Modes.exit && !eof) {
-		ssize_t nread, toread;
-		void *r;
-		struct mag_buf *outbuf, *lastbuf;
-		unsigned next_free_buffer;
-		unsigned slen;
-
-		next_free_buffer = (Modes.first_free_buffer + 1) % MODES_MAG_BUFFERS;
-		if (next_free_buffer == Modes.first_filled_buffer) {
-			/*  no space for output yet */
-			pthread_cond_wait(&Modes.data_cond, &Modes.data_mutex);
-			continue;
-		}
-
-		outbuf = &Modes.mag_buffers[Modes.first_free_buffer];
-		lastbuf = &Modes.mag_buffers[(Modes.first_free_buffer + MODES_MAG_BUFFERS - 1) % MODES_MAG_BUFFERS];
-		pthread_mutex_unlock(&Modes.data_mutex);
-
-		/*  Copy trailing data from last block (or reset if not valid) */
-		if (lastbuf->length >= Modes.trailing_samples) {
-			memcpy(outbuf->data, lastbuf->data + lastbuf->length - Modes.trailing_samples,
-			       Modes.trailing_samples * sizeof(uint16_t));
-		} else {
-			memset(outbuf->data, 0, Modes.trailing_samples * sizeof(uint16_t));
-		}
-
-
-		toread = MODES_MAG_BUF_SAMPLES * bytes_per_sample;
-		r = readbuf;
-		while (toread) {
-			nread = read(Modes.fd, r, toread);
-			if (nread <= 0) {
-				/*  Done. */
-				eof = 1;
-				break;
-			}
-			r += nread;
-			toread -= nread;
-		}
-
-		slen = outbuf->length = MODES_MAG_BUF_SAMPLES - toread / bytes_per_sample;
-
-		/*  Convert the new data */
-		convert_samples(readbuf, &outbuf->data[Modes.trailing_samples], slen);
-
-		/*  Push the new data to the main thread */
-		pthread_mutex_lock(&Modes.data_mutex);
-		Modes.first_free_buffer = next_free_buffer;
-		pthread_cond_signal(&Modes.data_cond);
-	}
-
-	free(readbuf);
-
-	/*  Wait for the main thread to consume all data */
-	while (!Modes.exit && Modes.first_filled_buffer != Modes.first_free_buffer)
-		pthread_cond_wait(&Modes.data_cond, &Modes.data_mutex);
-
-	pthread_mutex_unlock(&Modes.data_mutex);
-}
-
 /*
  * We read data using a thread, so the main thread only handles decoding
  * without caring about data acquisition
@@ -865,13 +807,12 @@ readerThreadEntryPoint(void *arg) {
 			rtlsdr_read_async(Modes.dev, rtlsdrCallback, NULL, MODES_RTL_BUFFERS, MODES_RTL_BUF_SIZE);
 
 			if (!Modes.exit) {
-				log_with_timestamp("Warning: lost the connection to the RTLSDR device.");
+				fprintftime(mslog.fp, "Warning: lost the connection to the RTLSDR device.\n");
 				rtlsdr_close(Modes.dev);
 				Modes.dev = NULL;
 
 				do {
 					sleep(5);
-					log_with_timestamp("Trying to reconnect to the RTLSDR device..");
 				} while (!Modes.exit && modesInitRTLSDR() < 0);
 			}
 		}
@@ -880,8 +821,6 @@ readerThreadEntryPoint(void *arg) {
 			rtlsdr_close(Modes.dev);
 			Modes.dev = NULL;
 		}
-	} else {
-		readDataFromFile();
 	}
 
 	/*  Wake the main thread (if it's still waiting) */
@@ -1083,12 +1022,12 @@ decode_message(const uint8_t *orig_msg) {
 		return -1;
 	}
 
-	printf("DF%02d:%ld:", msgtype, time(NULL));
+	fprintf(msout.fp, "DF%02d:%ld:", msgtype, time(NULL));
 	for (i = 0; i < len; ++i) {
-		printf("%02X", msg[i]);
+		fprintf(msout.fp, "%02X", msg[i]);
 	}
-	printf(":%06X\n", addr);
-	fflush(stdout);
+	fprintf(msout.fp, ":%06X\n", addr);
+	fflush(msout.fp);
 	
 	return len * 8;
 }
@@ -1109,52 +1048,133 @@ normalize_timespec(struct timespec *ts) {
 	}
 }
 
+static int
+daemonize() {
+	pid_t pid;
+
+	if ((pid = fork()) < 0) {
+		fprintf(stderr, "%s: FATAL: fork: %s\n", argv0, strerror(errno));
+		return -1;
+	}
+	if (pid > 0) {
+		exit(0);
+	}
+	if (setsid() < 0) {
+		fprintf(stderr, "%s: FATAL: setsid: %s\n", argv0, strerror(errno));
+		return -1;
+	}
+
+	if (!(mslog.fp = fopen(mslog.filename, "a"))) {
+		fprintf(stderr, "%s: FATAL: fopen %s: %s\n", argv0, mslog.filename, strerror(errno));
+		return -1;
+	}
+	if (!(msout.fp = fopen(msout.filename, "a"))) {
+		fprintftime(mslog.fp, "FATAL: fopen %s: %s\n", msout.filename, strerror(errno));
+		return -1;
+	}
+	if (chdir("/") < 0) {
+		fprintftime(mslog.fp, "FATAL: chdir /: %s\n", strerror(errno));
+		return -1;
+	}
+	if (chown(mslog.filename, msd.uid, mslog.gid) == -1) {
+		fprintftime(mslog.fp, "FATAL: chown %d:%d %s: %s\n",
+		            msd.uid, mslog.gid, mslog.filename, strerror(errno));
+		return -1;
+	}
+	if (chown(msout.filename, msd.uid, msout.gid) == -1) {
+		fprintftime(mslog.fp, "FATAL: chown %d:%d %s: %s\n",
+		            msd.uid, msout.gid, msout.filename, strerror(errno));
+		return -1;
+	}
+
+	setbuf(mslog.fp, NULL);
+
+	if (setgid(msd.gid) < 0) {
+		fprintftime(mslog.fp, "FATAL: setgid %d: %s\n", msd.gid, strerror(errno));
+		return -1;
+	}
+	if (setuid(msd.uid) < 0) {
+		fprintftime(mslog.fp, "FATAL: setuid %d: %s\n", msd.uid, strerror(errno));
+		return -1;
+	}
+
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
+
+	fprintftime(mslog.fp, "Daemon started.\n");
+
+	return 0;
+}
+
 static void
 usage() {
 	printf("usage: %s [-D device index]\n", argv0);
+	printf("usage: %s -d [-f logfile] [-o outfile] [-u uid] [-g gid] [-D device index]\n", argv0);
 	exit(1);
 }
 
 int
 main(int argc, char **argv) {
-	const char *filename = NULL;
-
 	memset(&Modes, 0, sizeof(Modes));
 	memset(&icao_cache, 0, sizeof(icao_cache));
 	Modes.check_crc = 1;
 	Modes.fd = -1;
 
-	signal(SIGINT, signal_handler);
+	memset(&msd,   0, sizeof(msd));
+	memset(&mslog, 0, sizeof(mslog));
+	memset(&msout, 0, sizeof(msout));
+
+	msd.uid = default_uid;
+	msd.gid = default_daemon_gid;
+
+	mslog.filename = default_logfile;
+	mslog.gid = default_log_gid;
+	msout.filename = default_outfile;
+	msout.gid = default_out_gid;
+
+	signal(SIGINT,  signal_handler);
 	signal(SIGTERM, signal_handler);
-	signal(SIGHUP, signal_handler);
 
 	ARGBEGIN {
+	case 'f':
+		mslog.filename = EARGF(usage());
+		break;
+	case 'o':
+		msout.filename = EARGF(usage());
+		break;
+	case 'd':
+		msd.daemonize = true;
+		break;
 	case 'D':
 		Modes.dev_index = atoi(EARGF(usage()));
 		break;
-	case 'f':
-		filename = EARGF(usage());
+	case 'g':
+		msd.gid = atoi(EARGF(usage()));
+		break;
+	case 'u':
+		msd.uid = atoi(EARGF(usage()));
 		break;
 	default:
 		usage();
 	} ARGEND;
 
-	/*  Initialization */
-	modesInit();
-
-	if (filename) {
-		if (!strcmp(filename, "-")) {
-			Modes.fd = STDIN_FILENO;
-		}
-		else if ((Modes.fd = open(filename, O_RDONLY)) == -1) {
-			fprintf(stderr, "%s: FATAL: open %s: %s\n",
-			        argv0, filename, strerror(errno));
-			exit(1);
+	if (msd.daemonize) {
+		signal(SIGHUP, signal_handler);
+		if (daemonize() < 0) {
+			goto failed;
 		}
 	} else {
-		if (modesInitRTLSDR() < 0) {
-			exit(1);
-		}
+		mslog.fp = stderr;
+		msout.fp = stdout;
+	}
+
+	if (modesInit() < 0) {
+		goto failed;
+	}
+
+	if (modesInitRTLSDR() < 0) {
+		goto failed;
 	}
 
 	int watchdogCounter = 10;	/*  about 1 second */
@@ -1209,8 +1229,8 @@ main(int argc, char **argv) {
 			/* Nothing to process this time around. */
 			pthread_mutex_unlock(&Modes.data_mutex);
 			if (--watchdogCounter <= 0) {
-				log_with_timestamp
-				 ("No data received from the dongle for a long time, it may have wedged");
+				fprintftime(mslog.fp, "No data received from the dongle"
+				                    "for a long time, it may have wedged.\n");
 				watchdogCounter = 600;
 			}
 		}
@@ -1219,12 +1239,22 @@ main(int argc, char **argv) {
 
 	pthread_mutex_unlock(&Modes.data_mutex);
 
-	log_with_timestamp("Waiting for receive thread termination");
+	fprintftime(mslog.fp, "Waiting for receive thread termination\n"); 
 	pthread_join(Modes.reader_thread, NULL);
 	pthread_cond_destroy(&Modes.data_cond);
 	pthread_mutex_destroy(&Modes.data_mutex);
 
-	log_with_timestamp("Normal exit.");
+	fprintftime(mslog.fp, "Normal exit.\n");
 
 	pthread_exit(0);
+
+failed:
+	if (mslog.fp) {
+		fprintftime(mslog.fp, "Abnormal exit.\n");
+		fclose(mslog.fp);
+	}
+	if (msout.fp) {
+		fclose(msout.fp);
+	}
+	return 1;
 }

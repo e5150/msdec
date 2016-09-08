@@ -66,3 +66,13 @@ static bool default_plot_previous = true;
  * 0 = no limit
  */
 static int default_message_cache = 100;
+
+
+#ifdef CONF_RTL_MODES
+static const char default_logfile[] = "/var/log/mode_s.log";
+static const char default_outfile[] = "/var/log/mode_s.out";
+static uid_t default_uid = 215;
+static gid_t default_daemon_gid = 87;
+static gid_t default_log_gid = 10;
+static gid_t default_out_gid = 10;
+#endif

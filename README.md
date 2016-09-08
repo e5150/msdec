@@ -107,6 +107,12 @@ GBD=1,3:GNSS = 50 ± 12.5 ft below barometric altitude
 It reads data from an RTL-SDR device at 1090 MHz, sampling at 2.4 MHz,
 and print (seemingly valid) messages to stdout, using the same format
 as described above as the preferred format for `msdec`.
+With the `-d` switch, it will run as a daemon, forking to background
+and dropping privileges to `uid` and `gid` configured in `config.h`
+(or by the `-u uid` and `-g gid` arguments). The default file for
+logging is `/var/log/mode_s.log`, where runtime information is written,
+and captured messages are appended to `/var/log/mode_s.out`. Those files
+will be reopened on reception of a `HUP` signal, to allow for rotation.
 
 
 # msgui

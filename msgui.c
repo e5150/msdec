@@ -890,10 +890,10 @@ cb_do_filter(GtkWidget *w, gpointer user_data) {
 
 	osm_gps_map_map_redraw_idle(gui.map);
 	if (gui.new_source) {
-		update_info(gui.sel);
 		gui.new_source = false;
 		osm_gps_map_set_map_source(gui.map, gui.map_source);
 	}
+	update_info(gui.sel);
 }
 
 static void
