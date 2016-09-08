@@ -20,13 +20,15 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "config.h"
 #include "aircraft.h"
 #include "message.h"
 #include "util.h"
 #include "crc.h"
 #include "nation.h"
 #include "compass.h"
+
+#define CONF_MSG_TTL
+#include "config.h"
 
 struct ms_msg_t *
 mk_msg(uint8_t *msg, time_t tme, uint32_t addr) {

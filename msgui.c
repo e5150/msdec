@@ -36,13 +36,15 @@
 
 #include "map.h"
 #include "compass.h"
-#include "config.h"
 #include "histogram.h"
 #include "aircraft.h"
 #include "message.h"
 #include "util.h"
 #include "parse.h"
 #include "sources.h"
+
+#define CONF_MSGUI
+#include "config.h"
 
 static int allocs = 0;
 static int frees = 0;

@@ -1,6 +1,4 @@
-static const double   default_lon  = 0.0;
-static const double   default_lat  = 0.0;
-
+#ifdef CONF_MSG_TTL
 /*
  * Print recorded locations and such
  * along with new messages (regardless
@@ -11,7 +9,10 @@ static const uint32_t location_ttl = 2;
 static const uint32_t velocity_ttl = 2;
 static const uint32_t altitude_ttl = 5;
 static const uint32_t squawk_ttl = 600;
+#endif
 
+
+#ifdef CONF_MSDEC
 /*
  * Default paths for dumping, if the path
  * contains “XXXXXX” it will be passed
@@ -20,7 +21,12 @@ static const uint32_t squawk_ttl = 600;
 static const char default_histogram_filename[]  = "/tmp/msdec-hist-XXXXXX";
 static const char default_statistics_filename[] = "/tmp/msdec-stats-XXXXXX";
 static const char default_aircraft_directory[]  = "/tmp/msdec-blackbox-XXXXXX";
-static const char default_json_filename[]       = "/tmp/msdec-aircrafts.json";
+#endif
+
+
+#ifdef CONF_MSGUI
+static const double   default_lon  = 0.0;
+static const double   default_lat  = 0.0;
 
 /*
  * Colours for aircraft trails plotted
@@ -66,13 +72,26 @@ static bool default_plot_previous = true;
  * 0 = no limit
  */
 static int default_message_cache = 100;
-
+#endif
 
 #ifdef CONF_RTL_MODES
 static const char default_logfile[] = "/var/log/mode_s.log";
 static const char default_outfile[] = "/var/log/mode_s.out";
+/*
+ * User to run daemon as, the log- and outfiles will
+ * also be chowned to this uid.
+ */
 static uid_t default_uid = 215;
+/* Group daemon is run as, make sure it has access to
+ * the rtl-sdr device
+ */
 static gid_t default_daemon_gid = 87;
+/*
+ * Groups which the files are chown to. (Doesn't really
+ * matter, since no permissions on the files are changed,
+ * so both group and others would have read but no write
+ * access. On most systems at least, I suppose…)
+ */
 static gid_t default_log_gid = 10;
 static gid_t default_out_gid = 10;
 #endif

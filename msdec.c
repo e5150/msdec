@@ -31,7 +31,6 @@
 
 #include <arg.h>
 
-#include "config.h"
 #include "histogram.h"
 #include "aircraft.h"
 #include "message.h"
@@ -39,6 +38,9 @@
 #include "stats.h"
 #include "parse.h"
 #include "dump.h"
+
+#define CONF_MSDEC
+#include "config.h"
 
 static struct {
 	bool print_stats;
