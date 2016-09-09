@@ -66,7 +66,7 @@ mk_BDS_09(const uint8_t *msg) {
 		ew = ret->data.vog.EW_v - 1.0;
 		if (ret->data.vog.EW_direction && ew > 0.0)
 			ew = -ew;
-		ret->velocity.angle = 180.0 / M_PI * atan2(ew, ns);
+		ret->velocity.heading = 180.0 / M_PI * atan2(ew, ns);
 		ret->velocity.speed = sqrt(ew * ew + ns * ns);
 		break;
 	case AV_AIRSPEED:
@@ -76,7 +76,7 @@ mk_BDS_09(const uint8_t *msg) {
 		ret->data.ash.heading    = ((msg[1] & 0x03) << 8) | (msg[2]);
 		ret->data.ash.airspeed   = ((msg[3] & 0x7F) << 3) | (msg[4] >> 5);
 
-		ret->velocity.angle = ret->data.ash.heading * 360.0 / 1024.0;
+		ret->velocity.heading = ret->data.ash.heading * 360.0 / 1024.0;
 		ret->velocity.speed = ret->data.ash.airspeed - 1;
 		break;
 	}
@@ -84,8 +84,8 @@ mk_BDS_09(const uint8_t *msg) {
 	if (ret->subtype == AV_AIRSPEED_SUPS || ret->subtype == AV_OVER_GROUND_SUPS) {
 		ret->velocity.speed *= 4.0; 
 	}
-	if (ret->velocity.angle < 0.0)
-		ret->velocity.angle += 360.0;
+	if (ret->velocity.heading <= 0.0)
+		ret->velocity.heading += 360.0;
 	return ret;
 }
 

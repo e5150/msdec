@@ -55,6 +55,7 @@ decode_speed(uint8_t s) {
 /*
  * GT angle
  * [3] B.3.4.5.5
+ * (Degrees from true north)
  */
 static double
 decode_angle(uint8_t v) {
@@ -83,7 +84,7 @@ mk_TISB_coarse(const uint8_t *msg) {
 	ret->GTS.angle = ((msg[2] & 0x0F) << 1) | (msg[3] >> 7);
 	ret->GTS.speed = (msg[3] >> 1) & 0x3F;
 
-	ret->velocity.angle = decode_angle(ret->GTS.angle);
+	ret->velocity.heading = decode_angle(ret->GTS.angle);
 	ret->velocity.speed = decode_speed(ret->GTS.speed);
 
 	ret->CPR.F = msg[3] & 0x01;

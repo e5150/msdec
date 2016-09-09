@@ -17,16 +17,13 @@
 #ifndef _MS_AIRCRAFT_H
 #define _MS_AIRCRAFT_H
 
-#ifdef GTK
-#include "osm-gps-map-track.h"
-#endif
 #include "message.h"
 #include "nation.h"
 
 struct ms_ac_velocity_t {
 	time_t time;
 	double speed;
-	double track;
+	double heading;
 	double vrate;
 	struct ms_ac_velocity_t *next;
 };

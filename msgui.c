@@ -199,7 +199,7 @@ update_info(const struct ms_aircraft_t *a) {
 		gtk_label_set_text(gui.info.vel, text);
 		i = snprintf(text, sizeof(text) - 1, "Heading: ");
 		if (a->velocities.last) {
-			double h = a->velocities.last->track;
+			double h = a->velocities.last->heading;
 			i += fill_angle_str(text + i, sizeof(text) - 1 - i, h);
 			snprintf(text + i, sizeof(text) - 1 - i,
 				 " (%s)", get_comp_point(h));
@@ -242,7 +242,7 @@ mk_info() {
 	GtkWidget *reg_lbl    = mk_sane_label(&gui.info.reg,     0);
 	GtkWidget *vrate_lbl  = mk_sane_label(&gui.info.vrate,   0);
 	GtkWidget *vel_lbl    = mk_sane_label(&gui.info.vel,     0);
-	GtkWidget *track_lbl  = mk_sane_label(&gui.info.heading, 0);
+	GtkWidget *head_lbl   = mk_sane_label(&gui.info.heading, 0);
 	GtkWidget *squawk_lbl = mk_sane_label(&gui.info.squawk,  0);
 	GtkWidget *msgs_lbl   = mk_sane_label(&gui.info.msgs,    0);
 	GtkWidget *coord_lbl  = mk_sane_label(&gui.info.coord,   0);
@@ -253,7 +253,7 @@ mk_info() {
 	gtk_table_attach(GTK_TABLE(container), reg_lbl,    0, 2, row, row + 1, GTK_EXPAND | GTK_FILL, 0, 3, 1);++row;
 	gtk_table_attach(GTK_TABLE(container), vrate_lbl,  0, 2, row, row + 1, GTK_EXPAND | GTK_FILL, 0, 3, 1);++row;
 	gtk_table_attach(GTK_TABLE(container), vel_lbl,    0, 2, row, row + 1, GTK_EXPAND | GTK_FILL, 0, 3, 1);++row;
-	gtk_table_attach(GTK_TABLE(container), track_lbl,  0, 2, row, row + 1, GTK_EXPAND | GTK_FILL, 0, 3, 1);++row;
+	gtk_table_attach(GTK_TABLE(container), head_lbl,   0, 2, row, row + 1, GTK_EXPAND | GTK_FILL, 0, 3, 1);++row;
 	gtk_table_attach(GTK_TABLE(container), squawk_lbl, 0, 2, row, row + 1, GTK_EXPAND | GTK_FILL, 0, 3, 1);++row;
 	gtk_table_attach(GTK_TABLE(container), coord_lbl,  0, 2, row, row + 1, GTK_EXPAND | GTK_FILL, 0, 3, 1);++row;
 	gtk_table_attach(GTK_TABLE(container), msgs_lbl,   0, 1, row, row + 1, GTK_EXPAND | GTK_FILL, 0, 3, 1);
@@ -315,11 +315,11 @@ enum {
 	SC_SQUAWK,
 	SC_ALT,
 	SC_SPEED,
-	SC_TRACK,
+	SC_HEAD,
 	SC_VRATE,
 	SC_MSGS,
 	SC_SEEN,
-	SC_STR_TRACK,
+	SC_STR_HEAD,
 	SC_STR_SEEN,
 	SC_PTR_AC,
 	SC_OBJ_FLAG,
@@ -348,12 +348,12 @@ update_store(struct ms_aircraft_t *a) {
 		gtk_list_store_set(gui.store, iter, SC_SQUAWK, s_squawk, -1);
 	}
 	if (a->velocities.last) {
-		const char *track_str = get_comp_point(a->velocities.last->track);
+		const char *head_str = get_comp_point(a->velocities.last->heading);
 		gtk_list_store_set(gui.store, iter,
 			SC_VRATE, lrint(a->velocities.last->vrate),
 			SC_SPEED, lrint(a->velocities.last->speed),
-			SC_TRACK, lrint(a->velocities.last->track),
-			SC_STR_TRACK, track_str,
+			SC_HEAD,  lrint(a->velocities.last->heading),
+			SC_STR_HEAD, head_str,
 			-1);
 	}
 	if (prev_seen != a->last_seen) {
@@ -397,7 +397,7 @@ add_to_store(struct ms_aircraft_t *a) {
 
 
 static void
-set_trail(struct ms_aircraft_t *a, bool selected) {
+set_track(struct ms_aircraft_t *a, bool selected) {
 	time_t seen;
 	struct ms_ac_ext_t *ext;
 	struct ms_ac_track_t *track;
@@ -473,7 +473,7 @@ add_loc_to_track(struct ms_aircraft_t *a, const struct ms_ac_location_t *loc) {
 			"line-width", 0.5,
 			NULL);
 		osm_gps_map_track_add(gui.map, track->track);
-		set_trail(a, false);
+		set_track(a, false);
 		track->next = ext->head;
 		ext->head = track;
 	}
@@ -528,7 +528,7 @@ cat(const char *filename) {
 					add_loc_to_track(a, l);
 				}
 				if (ext->head && ext->head->track && a->velocities.last) {
-					double heading = a->velocities.last->track;
+					double heading = a->velocities.last->heading;
 					osm_gps_map_track_set_heading(ext->head->track, heading);
 				}
 			}
@@ -695,7 +695,7 @@ visible_func(GtkTreeModel *model, GtkTreeIter *iter, gpointer data) {
 		struct ms_ac_ext_t *ext = a->ext;
 		ext->listed = visible;
 		
-		set_trail(a, a == gui.sel);
+		set_track(a, a == gui.sel);
 	}
 
 	return visible;
@@ -711,7 +711,7 @@ cb_row_activated(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *c
 		struct ms_ac_ext_t *ext;
 
 		if (gui.sel) {
-			set_trail(gui.sel, false);
+			set_track(gui.sel, false);
 		}
 
 		gtk_tree_model_get(model, &iter, SC_PTR_AC, &a, -1);
@@ -719,7 +719,7 @@ cb_row_activated(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *c
 		if (a) {
 			gui.sel = a;
 			update_info(a);
-			set_trail(a, true);
+			set_track(a, true);
 		}
 
 		osm_gps_map_map_redraw_idle(gui.map);
@@ -813,11 +813,11 @@ mk_list() {
 		G_TYPE_STRING, /* squawk */
 		G_TYPE_INT,    /* alt */
 		G_TYPE_INT,    /* speed */
-		G_TYPE_INT,    /* head */
+		G_TYPE_INT,    /* heading */
 		G_TYPE_INT,    /* vrate */
 		G_TYPE_INT,    /* msgs */
 		G_TYPE_INT,    /* seen */
-		G_TYPE_STRING, /* track str */
+		G_TYPE_STRING, /* heading str */
 		G_TYPE_STRING, /* seen str */
 		G_TYPE_POINTER,
 		G_TYPE_OBJECT
@@ -843,17 +843,17 @@ mk_list() {
 	gtk_tree_view_column_set_sort_column_id(column, SC_FLAG);
 	gui.column.flag = column;
 
-	gui.column.addr = add_text_renderer(list, "addr", SC_ADDR, SC_ADDR, 0.0f);
-	gui.column.name = add_text_renderer(list, "name", SC_NAME, SC_NAME, 0.0f);
-	gui.column.id   = add_text_renderer(list, "id", SC_SQUAWK, SC_SQUAWK, 0.0f);
-	gui.column.alt  = add_text_renderer(list, "alt", SC_ALT, SC_ALT, 1.0f);
-	gui.column.vel  = add_text_renderer(list, "speed", SC_SPEED, SC_SPEED, 1.0f);
-	gui.column.head = add_text_renderer(list, "head", SC_STR_TRACK, SC_TRACK, 0.0f);
-	gui.column.vert = add_text_renderer(list, "vert", SC_VRATE, SC_VRATE, 1.0f);
-	gui.column.msgs = add_text_renderer(list, "msgs", SC_MSGS, SC_MSGS, 1.0f);
-	gui.column.seen = add_text_renderer(list, "seen", SC_STR_SEEN, SC_SEEN, 1.0f);
+	gui.column.addr = add_text_renderer(list, "addr", SC_ADDR,      SC_ADDR,   0.0f);
+	gui.column.name = add_text_renderer(list, "name", SC_NAME,      SC_NAME,   0.0f);
+	gui.column.id   = add_text_renderer(list, "id",   SC_SQUAWK,    SC_SQUAWK, 0.0f);
+	gui.column.alt  = add_text_renderer(list, "a",    SC_ALT,       SC_ALT,    1.0f);
+	gui.column.vel  = add_text_renderer(list, "v",    SC_SPEED,     SC_SPEED,  1.0f);
+	gui.column.head = add_text_renderer(list, "°",    SC_STR_HEAD,  SC_HEAD,   0.0f);
+	gui.column.vert = add_text_renderer(list, "↕",    SC_VRATE,     SC_VRATE,  1.0f);
+	gui.column.msgs = add_text_renderer(list, "N",    SC_MSGS,      SC_MSGS,   1.0f);
+	gui.column.seen = add_text_renderer(list, "seen", SC_STR_SEEN,  SC_SEEN,   1.0f);
 
-	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(list), 0);
+	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(list), 1);
 	gtk_tree_view_columns_autosize(GTK_TREE_VIEW(list));
 
 	gtk_container_add(GTK_CONTAINER(container), list);
@@ -887,7 +887,7 @@ cb_do_filter(GtkWidget *w, gpointer user_data) {
 
 		if (!ext)
 			continue;
-		set_trail(a, a == gui.sel);
+		set_track(a, a == gui.sel);
 	}
 
 	osm_gps_map_map_redraw_idle(gui.map);
@@ -918,7 +918,7 @@ mk_settings() {
 	GtkWidget *filter_msg = gtk_spin_button_new_with_range(0, G_MAXINT, 1);
 	GtkWidget *do_filter  = gtk_button_new_with_label("Apply");
 	GtkWidget *plot_old   = gtk_check_button_new_with_label("Plot inactive aircrafts");
-	GtkWidget *plot_prev  = gtk_check_button_new_with_label("Plot old trails");
+	GtkWidget *plot_prev  = gtk_check_button_new_with_label("Plot old tracks");
 	GtkWidget *map_sel    = mk_mapsel();
 	
 	gtk_table_set_col_spacings(GTK_TABLE(container), 2);
@@ -1022,7 +1022,7 @@ cb_keypress(GtkWidget *win, GdkEventKey *event, gpointer data) {
 		sort_col = SC_SPEED;
 		break;
 	case GDK_7:
-		sort_col = SC_TRACK;
+		sort_col = SC_HEAD;
 		break;
 	case GDK_8:
 		sort_col = SC_VRATE;
@@ -1104,7 +1104,7 @@ cb_keypress(GtkWidget *win, GdkEventKey *event, gpointer data) {
 			case SC_SPEED:
 				gtk_tree_view_column_clicked(gui.column.vel);
 				return true;
-			case SC_TRACK:
+			case SC_HEAD:
 				gtk_tree_view_column_clicked(gui.column.head);
 				return true;
 			case SC_VRATE:
@@ -1163,10 +1163,10 @@ usage() {
 	       " -M #:\tmessage cache per aircraft\n"
 	       " -h:\tdo show home location\n"
 	       " -H:\tdo not show home location\n"
-	       " -p:\tdo plot previous trails\n"
-	       " -P:\tdo not plot previous trails\n"
-	       " -i:\tdo plot inactive aircraft trails\n"
-	       " -I:\tdo not plot inactive aircraft trails\n"
+	       " -p:\tdo plot previous tracks\n"
+	       " -P:\tdo not plot previous tracks\n"
+	       " -i:\tdo plot inactive aircraft tracks\n"
+	       " -I:\tdo not plot inactive aircraft tracks\n"
 	       " -S #:\tuse map source number #\n");
 	exit(1);
 }

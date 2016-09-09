@@ -111,7 +111,7 @@ update_velocity(struct ms_aircraft_t *a, const struct ms_velocity_t *v, time_t t
 	struct ms_ac_velocity_t *vel = calloc(1, sizeof(struct ms_ac_velocity_t));
 
 	vel->speed = v->speed;
-	vel->track = v->angle;
+	vel->heading = v->heading;
 	vel->vrate = v->vert;
 	vel->next = NULL;
 	vel->time = ts;

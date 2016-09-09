@@ -126,7 +126,7 @@ dump_flightlog(const struct ms_aircraft_t *a, const char *dir) {
 		}
 
 		if (vel && vel->time == ts) {
-			fprintf(fp, "%.0f\t%.0f\t", vel->speed, vel->track);
+			fprintf(fp, "%.0f\t%.0f\t", vel->speed, vel->heading);
 			while (vel && vel->time == ts)
 				vel = vel->next;
 		} else {

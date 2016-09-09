@@ -71,8 +71,13 @@ mk_BDS_06(const uint8_t *msg) {
 	ret->GTS.valid = msg[1] & 0x08;
 	ret->GTS.angle = ((msg[1] & 0x07) << 4) | (msg[2] >> 4);
 
+	/*
+	 * TODO?
+	 * If valid = false the angle might be ground track rather
+	 * than heading… should we bother to handle those cases?
+	 */
 	ret->velocity.speed = decode_speed(ret->GTS.speed);
-	ret->velocity.angle = decode_angle(ret->GTS.angle);
+	ret->velocity.heading = decode_angle(ret->GTS.angle);
 
 	ret->CPR.surface = true;
 	ret->CPR.F = msg[2] & 0x04;

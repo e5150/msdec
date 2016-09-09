@@ -173,14 +173,14 @@ pr_msg(FILE *fp, const struct ms_msg_t *msg, int v) {
 		}
 		if (a->velocities.last && msg->time - a->velocities.last->time < velocity_ttl) {
 			char angle[40];
-			double s, t;
+			double s, h;
 			s = a->velocities.last->speed;
-			t = a->velocities.last->track;
+			h = a->velocities.last->heading;
 
-			fill_angle_str(angle, 40, t);
+			fill_angle_str(angle, 40, h);
 			fprintf(fp, "Velocity:%'.1f kt (%'.0f km/h):%s (%s)\n",
 			       s, KT2KMPH(s),
-			       angle, get_comp_point(t));
+			       angle, get_comp_point(h));
 		}
 		if (a->squawks.last && msg->time - a->squawks.last->time < squawk_ttl) {
 			pr_ID(fp, a->squawks.last->ID);

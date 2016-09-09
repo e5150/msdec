@@ -82,12 +82,12 @@ pr_SL(FILE *fp, uint8_t SL) {
 
 void
 pr_velocity(FILE *fp, const struct ms_velocity_t *v) {
-	char angle[20];
+	char heading[20];
 
-	fill_angle_str(angle, 20, v->angle);
+	fill_angle_str(heading, 20, v->heading);
 	fprintf(fp, "Velocity:%'.1f kt (%'.0f km/h):%s (%s)\n",
 	       v->speed, KT2KMPH(v->speed),
-	       angle, get_comp_point(v->angle));
+	       heading, get_comp_point(v->heading));
 }
 
 /*

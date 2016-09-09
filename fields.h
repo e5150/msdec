@@ -90,9 +90,10 @@ struct ms_CPR_t {
 
 struct ms_velocity_t {
 	double speed; /* kt */
-	double angle; /* ° from mag N */
+	double heading; /* ° from mag N */
 	double vert;  /* ft/min */
 };
+
 void pr_VS(FILE *fp, bool VS);
 void pr_CC(FILE *fp, bool CC);
 void pr_SL(FILE *fp, uint8_t SL);
