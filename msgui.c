@@ -1155,7 +1155,7 @@ mk_win() {
 
 static void
 usage() {
-	printf("usage: %s [options] <file>\n", argv0);
+	printf("usage: %s [options] [file]\n", argv0);
 	printf("options:\n"
 	       " -m #:\tlisted aircrafts threshold, messages\n"
 	       " -s #:\tlisted aircrafts threshold, seconds\n"
@@ -1240,9 +1240,11 @@ main(int argc, char *argv[]) {
 	} ARGEND;
 
 	if (!argc)
+		filename = (char *)default_outfile;
+	else if (argc == 1)
+		filename = argv[0];
+	else
 		usage();
-
-	filename = argv[0];
 
 	if (gui.map_source >= sizeof(sources) / sizeof(sources[0])) {
 		fprintf(stderr, "%s: FATAL: Invalid map source: %d\n", argv0, gui.map_source);

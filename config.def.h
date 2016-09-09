@@ -74,9 +74,11 @@ static bool default_plot_previous = true;
 static int default_message_cache = 100;
 #endif
 
-#ifdef CONF_RTL_MODES
+#if defined(CONF_RTL_MODES) | defined(CONF_MSGUI)
 static const char default_logfile[] = "/var/log/mode_s.log";
 static const char default_outfile[] = "/var/log/mode_s.out";
+#endif
+#ifdef CONF_RTL_MODES
 /*
  * User to run daemon as, the log- and outfiles will
  * also be chowned to this uid.
