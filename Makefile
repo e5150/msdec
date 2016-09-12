@@ -10,6 +10,7 @@ LDFLAGS  += -L.
 
 EXE_SRC =               \
 	msgui.c         \
+	msrawdump.c     \
 	msdec.c         \
 	rtl-modes.c
 
@@ -18,6 +19,7 @@ LIB_SRC=                \
 	histogram.c     \
 	aircraft.c      \
 	fields.c        \
+	inot.c          \
 	parse.c         \
 	stats.c         \
 	es.c            \
@@ -89,6 +91,9 @@ msgui: msgui.o libmsdec.a $(GUI_OBJ)
 
 msdec: msdec.o libmsdec.a
 	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS) -lm -lmsdec
+
+msrawdump: msrawdump.o libmsdec.a
+	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS) -lmsdec
 
 rtl-modes: rtl-modes.o libmsdec.a
 	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS) $(RTLLIBS) -lm -lpthread -lmsdec

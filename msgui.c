@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include <sys/inotify.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -42,6 +41,7 @@
 #include "util.h"
 #include "parse.h"
 #include "sources.h"
+#include "inot.h"
 
 #define CONF_MSGUI
 #include "config.h"
@@ -289,24 +289,6 @@ struct ms_ac_ext_t {
 		struct ms_ac_track_t *next;
 	} *head;
 };
-
-static int
-init_inotify(const char *filename, int *ifd, int *iwfd) {
-	if ((*ifd = inotify_init()) < 0) {
-		fprintf(stderr, "%s: ERROR: inotify_init: %s\n",
-			argv0, strerror(errno));
-		return -1;
-	}
-	if ((*iwfd = inotify_add_watch(*ifd, filename, IN_MODIFY
-	                                             | IN_DELETE_SELF
-	                                             | IN_MOVE_SELF
-	                                             | IN_UNMOUNT)) < 0) {
-		fprintf(stderr, "%s: ERROR: inotify_add_watch %s: %s\n",
-			argv0, filename, strerror(errno));
-		close(*ifd);
-	}
-	return 0;
-}
 
 enum {
 	SC_FLAG,

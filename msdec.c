@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <sys/inotify.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <stdbool.h>
@@ -38,6 +37,7 @@
 #include "stats.h"
 #include "parse.h"
 #include "dump.h"
+#include "inot.h"
 
 #define CONF_MSDEC
 #include "config.h"
@@ -60,49 +60,6 @@ static struct {
 } options;
 
 static int
-init_inotify(const char *filename, int *ifd, int *iwfd) {
-	if ((*ifd = inotify_init()) < 0) {
-		fprintf(stderr, "%s: ERROR: inotify_init: %s\n",
-			argv0, strerror(errno));
-		return -1;
-	}
-	if ((*iwfd = inotify_add_watch(*ifd, filename, IN_MODIFY
-	                                             | IN_DELETE_SELF
-	                                             | IN_MOVE_SELF
-	                                             | IN_UNMOUNT)) < 0) {
-		fprintf(stderr, "%s: ERROR: inotify_add_watch %s: %s\n",
-			argv0, filename, strerror(errno));
-		return -1;
-	}
-	return 0;
-}
-
-static int
-wait_for_inotify(int fd) {
-	char ib[4 * sizeof(struct inotify_event)];
-	struct inotify_event *ev;
-	ssize_t len, i;
-
-	len = read(fd, ib, sizeof(ib));
-
-	if (len < 0) {
-		if (errno == EINTR || errno == EAGAIN) {
-			return 0;
-		}
-		return -2;
-	}
-
-	for (i = 0; i < len; i += sizeof(struct inotify_event) + ev->len) {
-		ev = (struct inotify_event *)(ib + i);
-		if (ev->mask & ~IN_MODIFY) {
-			return -1;
-		}
-	}
-
-	return 0;
-}
-
-static int
 cat(const char *filename) {
 	struct ms_aircraft_t *aircrafts = NULL;
 	struct ms_histogram_t *histogram = NULL;
@@ -113,7 +70,9 @@ cat(const char *filename) {
 	int iwfd = -1;
 	char *acdumpdir = NULL;
 
-	if (options.follow && init_inotify(filename, &ifd, &iwfd)) {
+	if (options.follow && init_inotify(filename, &ifd, &iwfd) < 0) {
+		fprintf(stderr, "%s: ERROR: Failed to setup inotify on %s: %s\n",
+		        argv0, filename, strerror(errno));
 		return -1;
 	}
 
@@ -143,7 +102,6 @@ cat(const char *filename) {
 
 
 	do {
-		int iret = 0;
 		struct ms_msg_t *msgs, *msg;
 
 		msgs = parse_file(filename, &offset, &aircrafts);
@@ -176,17 +134,15 @@ cat(const char *filename) {
 			msgs = tmp;
 		}
 
-		if (options.follow) {
-			iret = wait_for_inotify(ifd);
-			if (iret < 0) {
-				printf("Input file %s seems to have disappeared.\n", filename);
-				close(iwfd);
-				iwfd = -1;
-			}
+		if (options.follow && wait_for_inotify(ifd) < 0) {
+			printf("Input file %s seems to have disappeared.\n", filename);
+			break;
 		}
+	} while (options.follow);
 
-	} while (iwfd >= 0);
-
+	if (iwfd >= 0) {
+		close(iwfd);
+	}
 	if (ifd >= 0) {
 		close(ifd);
 	}

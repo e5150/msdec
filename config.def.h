@@ -25,6 +25,7 @@ static const char default_aircraft_directory[]  = "/tmp/msdec-blackbox-XXXXXX";
 
 
 #ifdef CONF_MSGUI
+#define CONF_MSFILES
 static const double   default_lon  = 0.0;
 static const double   default_lat  = 0.0;
 
@@ -74,11 +75,8 @@ static bool default_plot_previous = true;
 static int default_message_cache = 100;
 #endif
 
-#if defined(CONF_RTL_MODES) | defined(CONF_MSGUI)
-static const char default_logfile[] = "/var/log/mode_s.log";
-static const char default_outfile[] = "/var/log/mode_s.out";
-#endif
 #ifdef CONF_RTL_MODES
+#define CONF_MSFILES
 /*
  * User to run daemon as, the log- and outfiles will
  * also be chowned to this uid.
@@ -96,4 +94,10 @@ static gid_t default_daemon_gid = 87;
  */
 static gid_t default_log_gid = 10;
 static gid_t default_out_gid = 10;
+#endif
+
+
+#ifdef CONF_MSFILES
+static const char default_logfile[] = "/var/log/mode_s.log";
+static const char default_outfile[] = "/var/log/mode_s.out";
 #endif
