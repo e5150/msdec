@@ -105,7 +105,7 @@ rtl-modes: rtl-modes.o libmsdec.a
 
 install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
-	install -m 0755 $(PRG) $(DESTDIR)$(PREFIX)/bin
+	install $(PRG) $(DESTDIR)$(PREFIX)/bin
 
 depend: $(SRC) $(HDR)
 	gcc -I. -MM $^ > mk.$@

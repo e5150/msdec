@@ -134,7 +134,7 @@ update_info(const struct ms_aircraft_t *a) {
 
 	if (!a) {
 		const char msdec_line[] = "Mode S decode © Lars Lindqvist 2016 <a href=\"" GPL3URL "\">GPLv3</a>";
-		const char osmgm_line[] =  "Map widget based on <a href=\""OGMURL"\">osm-gps-map</a> © John Stowers &amp; al. <a href=\"" GPL2URL "\">GPLv2+</a>";
+		const char osmgm_line[] = "Map widget based on <a href=\"" OGMURL "\">osm-gps-map</a> © John Stowers &amp; al. <a href=\"" GPL2URL "\">GPLv2+</a>";
 		const char *map_attr1 = sources[gui.map_source].attrib_full1;
 		const char *map_attr2 = sources[gui.map_source].attrib_full2;
 
