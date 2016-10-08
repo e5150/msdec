@@ -1,3 +1,13 @@
+.*.swp
 *.o
+*.a
+*.oo
+*~
+*.bak
+vgcore.*
+tags
 config.h
-*.*.swp
+msdec
+msgui
+msrawdump
+rtl-modes
