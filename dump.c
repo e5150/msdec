@@ -89,10 +89,6 @@ dump_flightlog(const struct ms_aircraft_t *a, const char *dir) {
 
 	while (alt || loc || vel || sqw) {
 		time_t ts = 0;
-		time_t at = alt ? alt->time : 0;
-		time_t lt = loc ? loc->time : 0;
-		time_t vt = vel ? vel->time : 0;
-		time_t st = sqw ? sqw->time : 0;
 		char timestr[20];
 
 		if (alt)

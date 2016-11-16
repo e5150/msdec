@@ -102,7 +102,7 @@ cat(const char *filename) {
 
 
 	do {
-		struct ms_msg_t *msgs, *msg;
+		struct ms_msg_t *msgs;
 
 		msgs = parse_file(filename, &offset, &aircrafts);
 

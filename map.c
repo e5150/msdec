@@ -1569,7 +1569,6 @@ on_track_changed(OsmGpsMapTrack * track, GParamSpec * pspec, OsmGpsMap * map) {
 
 static void
 osm_gps_map_init(OsmGpsMap * object) {
-	int i;
 	OsmGpsMapPrivate *priv;
 
 	priv = G_TYPE_INSTANCE_GET_PRIVATE(object, OSM_TYPE_GPS_MAP, OsmGpsMapPrivate);
@@ -1592,7 +1591,10 @@ osm_gps_map_init(OsmGpsMap * object) {
 	priv->map_source = -1;
 
 	/* set the user agent */
+	/*
 	priv->soup_session = soup_session_async_new_with_options(SOUP_SESSION_USER_AGENT, USER_AGENT, NULL);
+	*/
+	priv->soup_session = soup_session_new();
 
 	/* Hash table which maps tile d/l URIs to SoupMessage requests, the hashtable
 	   must free the key, the soup session unrefs the message */

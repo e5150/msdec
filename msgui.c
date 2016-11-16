@@ -383,8 +383,6 @@ set_track(struct ms_aircraft_t *a, bool selected) {
 	time_t seen;
 	struct ms_ac_ext_t *ext;
 	struct ms_ac_track_t *track;
-	int cidx;
-	double lw;
 	bool listed;
 
 	if (!a || !(ext = a->ext) || !ext->head)
@@ -472,10 +470,7 @@ static int
 cat(const char *filename) {
 	static off_t offset = 0;
 	int err = 0;
-	struct ms_msg_t *msgs, *msg;
-	time_t now = time(NULL);
-	int all = 0;
-	int fre = 0;
+	struct ms_msg_t *msgs;
 
 	msgs = parse_file(filename, &offset, &aircrafts);
 
@@ -490,7 +485,6 @@ cat(const char *filename) {
 		struct ms_aircraft_t *a = msgs->aircraft;
 		if (a) {
 			struct ms_ac_ext_t *ext;
-			struct ms_ac_track_t *track;
 			const struct ms_ac_location_t *l;
 
 			if (a->ext) {
@@ -539,7 +533,6 @@ icb(GIOChannel *giofp, GIOCondition cond, gpointer data) {
 	char ib[4 * sizeof(struct inotify_event)];
 	struct inotify_event *ev;
 	ssize_t len, i;
-	int ret;
 
 	len = read(fd, ib, sizeof(ib));
 
@@ -596,7 +589,6 @@ cb_map_changed(void) {
 	double lat, lon;
 	long int scale;
 	char msg[128];
-	char *s;
 	int zoom;
 	int len;
 
@@ -690,7 +682,6 @@ cb_row_activated(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *c
 	
 	if (gtk_tree_model_get_iter(model, &iter, path)) {
 		struct ms_aircraft_t *a;
-		struct ms_ac_ext_t *ext;
 
 		if (gui.sel) {
 			set_track(gui.sel, false);
@@ -753,7 +744,6 @@ static GtkTreeViewColumn *
 add_text_renderer(GtkWidget *view, const char *title, int col, int sort_col, gfloat align) {
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
-	GtkWidget *head;
 
 	renderer = gtk_cell_renderer_text_new();
 	gtk_cell_renderer_set_padding(renderer, 0, 0);
@@ -781,7 +771,6 @@ GtkWidget *
 mk_list() {
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
-	GtkWidget *bin;
 	GtkWidget *container;
 	GtkWidget *list;
 	GtkListStore *store;
@@ -1155,14 +1144,12 @@ usage() {
 
 int
 main(int argc, char *argv[]) {
-	int i;
 	int err = 0;
 	int ifd = -1;
 	int iwfd = -1;
 	char *filename;
 	GIOChannel *gioc;
 	double dpi;
-	GError *gerr;
 
 	gtk_init(&argc, &argv);
 	setlocale(LC_ALL, "");
